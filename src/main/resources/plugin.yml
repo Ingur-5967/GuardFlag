@@ -1,0 +1,7 @@
+name: GuardFlags
+version: '${project.version}'
+main: ru.solomka.guard.Main
+authors: [ Solomka ]
+commands:
+  drg:
+    description: main command
