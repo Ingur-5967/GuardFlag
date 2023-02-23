@@ -84,7 +84,7 @@ public abstract class GMenu<T extends GMenu<?>> {
                             file.getString("items." + id + ".id"),
                             item, file.getInt("items." + id + ".slot"), meta
                     ),
-                    inventory, null
+                    inventory, a -> {}
             ));
             inventory.setItem(file.getInt("items." + id + ".slot"), item);
         }
