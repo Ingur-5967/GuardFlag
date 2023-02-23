@@ -23,7 +23,7 @@ public class GuardEntryMove implements Listener {
 
         ProtectedRegion region = WorldGuardHelper.getRegionOfContainsBlock(event.getTo().getBlock());
 
-        Bukkit.getPluginManager().callEvent(new RegionMovingEvent(player, region));
+        Bukkit.getPluginManager().callEvent(new RegionMovingEvent(player, event.getFrom(), event.getTo(), region));
 
         if(region.contains(event.getFrom().getBlock().getX(), event.getFrom().getBlock().getY(), event.getFrom().getBlock().getZ())) return;
 

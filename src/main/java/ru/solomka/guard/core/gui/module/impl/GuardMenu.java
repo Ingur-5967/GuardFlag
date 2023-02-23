@@ -1,6 +1,5 @@
-package ru.solomka.guard.core.gui.impl;
+package ru.solomka.guard.core.gui.module.impl;
 
-import org.bukkit.Bukkit;
 import ru.solomka.guard.core.gui.module.GMenu;
 import ru.solomka.guard.core.gui.module.entity.GComponentMenu;
 import ru.solomka.guard.core.gui.module.entity.GMenuAdapter;

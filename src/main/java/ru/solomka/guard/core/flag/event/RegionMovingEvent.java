@@ -2,6 +2,7 @@ package ru.solomka.guard.core.flag.event;
 
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import lombok.Getter;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
@@ -15,11 +16,15 @@ public class RegionMovingEvent extends Event implements Cancellable {
 
     @Getter private final ProtectedRegion region;
 
+    @Getter private final Location from, to;
+
     private boolean cancel;
 
-    public RegionMovingEvent(Player player, ProtectedRegion region) {
+    public RegionMovingEvent(Player player, Location from, Location to, ProtectedRegion region) {
         this.player = player;
         this.region = region;
+        this.from = from;
+        this.to = to;
     }
 
     @Override

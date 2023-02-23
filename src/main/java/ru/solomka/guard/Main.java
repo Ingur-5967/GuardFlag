@@ -11,13 +11,13 @@ import ru.solomka.guard.core.flag.event.handler.GuardEntryHarm;
 import ru.solomka.guard.core.flag.event.handler.GuardEntryInteract;
 import ru.solomka.guard.core.flag.event.handler.GuardEntryMove;
 import ru.solomka.guard.core.flag.event.handler.factory.GuardEntry;
-import ru.solomka.guard.core.flag.impl.BuildBlockFlag;
-import ru.solomka.guard.core.flag.impl.FlyFlag;
-import ru.solomka.guard.core.flag.impl.TNTFlag;
+import ru.solomka.guard.core.flag.module.impl.BuildBlockFlag;
+import ru.solomka.guard.core.flag.module.impl.FlyFlag;
+import ru.solomka.guard.core.flag.module.impl.TNTFlag;
 import ru.solomka.guard.core.gui.ControllerManager;
 import ru.solomka.guard.core.gui.GUIManager;
-import ru.solomka.guard.core.gui.impl.GuardMenu;
-import ru.solomka.guard.core.gui.impl.controllers.ClickInventoryController;
+import ru.solomka.guard.core.gui.module.impl.GuardMenu;
+import ru.solomka.guard.core.gui.module.impl.controllers.ClickInventoryController;
 import ru.solomka.guard.event.TriggeredRegionEvent;
 
 public class Main extends JavaPlugin {

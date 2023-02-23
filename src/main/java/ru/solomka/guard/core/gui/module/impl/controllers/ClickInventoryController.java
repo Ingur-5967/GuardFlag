@@ -1,6 +1,5 @@
-package ru.solomka.guard.core.gui.impl.controllers;
+package ru.solomka.guard.core.gui.module.impl.controllers;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -8,8 +7,6 @@ import org.bukkit.inventory.Inventory;
 import ru.solomka.guard.core.gui.GUIManager;
 import ru.solomka.guard.core.gui.module.GController;
 import ru.solomka.guard.core.gui.module.entity.GComponentMenu;
-
-import java.util.function.Consumer;
 
 public class ClickInventoryController extends GController<ClickInventoryController> {
 

@@ -1,9 +1,7 @@
-package ru.solomka.guard.core.flag.impl;
+package ru.solomka.guard.core.flag.module.impl;
 
 import org.bukkit.entity.Player;
-import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
 import ru.solomka.guard.core.flag.enums.Flag;
 import ru.solomka.guard.core.flag.module.GFlag;
 

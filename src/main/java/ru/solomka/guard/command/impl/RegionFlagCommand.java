@@ -9,17 +9,11 @@ import org.bukkit.entity.Player;
 import ru.solomka.guard.command.module.ECommand;
 import ru.solomka.guard.command.module.entity.TabViewCommand;
 import ru.solomka.guard.command.module.enums.SenderType;
-import ru.solomka.guard.config.Yaml;
-import ru.solomka.guard.config.enums.DirectorySource;
-import ru.solomka.guard.config.files.FileUtils;
 import ru.solomka.guard.core.GRegionManager;
 import ru.solomka.guard.core.flag.FlagManager;
 import ru.solomka.guard.core.flag.module.GFlag;
-import ru.solomka.guard.core.flag.utils.FlagRoute;
 import ru.solomka.guard.core.gui.GUIManager;
-import ru.solomka.guard.core.gui.impl.GuardMenu;
-
-import java.util.Objects;
+import ru.solomka.guard.core.gui.module.impl.GuardMenu;
 
 public class RegionFlagCommand extends ECommand<RegionFlagCommand> {
 

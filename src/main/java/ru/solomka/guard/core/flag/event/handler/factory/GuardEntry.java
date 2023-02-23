@@ -30,7 +30,7 @@ public class GuardEntry extends Handler implements Listener {
         PluginManager plm = Bukkit.getPluginManager();
         for(ProtectedRegion region : entered) {
 
-            RegionMovingEvent regionMovingEvent = new RegionMovingEvent(player, region);
+            RegionMovingEvent regionMovingEvent = new RegionMovingEvent(player, from, to, region);
             RegionEnteredEvent regionEnteredEvent = new RegionEnteredEvent(player, from, to, region);
 
             plm.callEvent(regionEnteredEvent);
