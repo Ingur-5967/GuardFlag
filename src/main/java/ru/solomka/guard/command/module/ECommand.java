@@ -28,7 +28,7 @@ public abstract class ECommand<T extends ECommand<?>> implements ECommandHelper 
     private final boolean sortingArguments;
     private final Object[] toViewElementsWrapper;
 
-    public abstract boolean execute(CommandSender sender, String[] args);
+    public abstract boolean execute(CommandSender sender, String[] args) throws InstantiationException, IllegalAccessException;
 
     public abstract T getInstance();
 
@@ -45,7 +45,11 @@ public abstract class ECommand<T extends ECommand<?>> implements ECommandHelper 
 
             return true;
         }
-        return execute(sender, args);
+        try {
+            return execute(sender, args);
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

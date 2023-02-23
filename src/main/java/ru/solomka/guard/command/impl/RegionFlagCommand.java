@@ -13,8 +13,13 @@ import ru.solomka.guard.config.Yaml;
 import ru.solomka.guard.config.enums.DirectorySource;
 import ru.solomka.guard.config.files.FileUtils;
 import ru.solomka.guard.core.GRegionManager;
+import ru.solomka.guard.core.flag.FlagManager;
+import ru.solomka.guard.core.flag.module.GFlag;
+import ru.solomka.guard.core.flag.utils.FlagRoute;
 import ru.solomka.guard.core.gui.GUIManager;
 import ru.solomka.guard.core.gui.impl.GuardMenu;
+
+import java.util.Objects;
 
 public class RegionFlagCommand extends ECommand<RegionFlagCommand> {
 
@@ -36,7 +41,7 @@ public class RegionFlagCommand extends ECommand<RegionFlagCommand> {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String[] args) {
+    public boolean execute(CommandSender sender, String[] args) throws InstantiationException, IllegalAccessException {
         Player player = (Player) sender;
 
         if(args[0] == null) return true;
@@ -71,7 +76,17 @@ public class RegionFlagCommand extends ECommand<RegionFlagCommand> {
                 return true;
             }
 
-            new GRegionManager().createRegionFile(args[1]).set("Blocks." + args[3].toUpperCase() + ".State", args[4].toLowerCase());
+            String[] defArgs = {"controller", "params"};
+
+            GFlag<?, ?> controller = FlagManager.getControllerOfId(args[2]);
+
+            if(controller == null)
+                throw new NullPointerException("Controller cannot be null!");
+
+            Object[] defParams = {controller.getClass().getName().split("\\.")[6], args[4].toLowerCase()};
+
+            for (int i = 0; i < defArgs.length; i++)
+                new GRegionManager().createRegionFile(args[1]).set("flags." + args[2].toLowerCase() + "." + defArgs[i], defParams[i].toString());
 
             player.sendMessage("Успешно установлен флаг для региона " + args[1] + " (Material: " + args[3].toUpperCase() + ") значение " + args[4].toLowerCase());
             return true;

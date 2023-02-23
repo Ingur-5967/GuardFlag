@@ -108,6 +108,10 @@ public class Yaml {
         return yaml.getString(path);
     }
 
+    public Object getObject(String path) {
+        return yaml.get(path);
+    }
+
     public boolean getBoolean(String path) {
         return yaml.getBoolean(path);
     }

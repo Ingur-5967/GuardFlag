@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import ru.solomka.guard.Main;
 import ru.solomka.guard.config.enums.DirectorySource;
 import ru.solomka.guard.config.utils.ServiceRegistrationBuilder;
+import ru.solomka.guard.core.flag.utils.GLogger;
 
 import java.util.Arrays;
 
@@ -33,6 +34,11 @@ public class RegistrationService {
     }
 
     public static void registrationEvents(Listener ...listeners) {
-        Arrays.stream(listeners).forEach(e -> Bukkit.getPluginManager().registerEvents(e, Main.getInstance()));
+        Arrays.stream(listeners).forEach(e -> {
+            Bukkit.getPluginManager().registerEvents(e, Main.getInstance());
+
+            GLogger.info("Listeners success registration");
+
+        });
     }
 }
