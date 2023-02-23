@@ -12,10 +12,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import ru.solomka.guard.core.WorldGuardHelper;
-import ru.solomka.guard.core.flag.event.RegionChangeEvent;
-import ru.solomka.guard.core.flag.event.RegionEnteringEvent;
+import ru.solomka.guard.core.flag.event.RegionEnteredEvent;
 import ru.solomka.guard.core.flag.event.RegionLeftEvent;
-import ru.solomka.guard.core.flag.utils.GLogger;
+import ru.solomka.guard.core.flag.event.RegionMovingEvent;
 
 import java.util.Set;
 
@@ -30,9 +29,14 @@ public class GuardEntry extends Handler implements Listener {
     public boolean onCrossBoundary(Player player, Location from, Location to, ApplicableRegionSet toSet, Set<ProtectedRegion> entered, Set<ProtectedRegion> exited, MoveType moveType) {
         PluginManager plm = Bukkit.getPluginManager();
         for(ProtectedRegion region : entered) {
-            RegionEnteringEvent regionEnteringEvent = new RegionEnteringEvent(player, region);
-            plm.callEvent(regionEnteringEvent);
-            if(regionEnteringEvent.isCancelled()) return false;
+
+            RegionMovingEvent regionMovingEvent = new RegionMovingEvent(player, region);
+            RegionEnteredEvent regionEnteredEvent = new RegionEnteredEvent(player, from, to, region);
+
+            plm.callEvent(regionEnteredEvent);
+            plm.callEvent(regionMovingEvent);
+
+            if(regionMovingEvent.isCancelled() || regionEnteredEvent.isCancelled()) return false;
         }
 
         for(ProtectedRegion region : exited) {

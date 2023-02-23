@@ -2,26 +2,29 @@ package ru.solomka.guard.core.flag.event;
 
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import lombok.Getter;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-import java.util.Set;
-
-public class RegionEnteringEvent extends Event implements Cancellable {
+public class RegionEnteredEvent extends Event implements Cancellable {
 
     private static final HandlerList HANDLER_LIST = new HandlerList();
 
-    @Getter private final Player player;
+    @Getter
+    private final Player player;
 
     @Getter private final ProtectedRegion region;
+    @Getter private final Location from, to;
 
     private boolean cancel;
 
-    public RegionEnteringEvent(Player player, ProtectedRegion region) {
+    public RegionEnteredEvent(Player player, Location from, Location to, ProtectedRegion region) {
         this.player = player;
         this.region = region;
+        this.from = from;
+        this.to = to;
     }
 
     @Override

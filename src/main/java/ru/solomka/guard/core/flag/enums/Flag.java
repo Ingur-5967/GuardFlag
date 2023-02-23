@@ -1,9 +1,6 @@
 package ru.solomka.guard.core.flag.enums;
 
 import lombok.Getter;
-import org.bukkit.event.Event;
-import ru.solomka.guard.core.flag.event.RegionEnteringEvent;
-import ru.solomka.guard.core.flag.impl.FlyFlag;
 
 public enum Flag {
 
@@ -11,7 +8,7 @@ public enum Flag {
     BLOCK_BUILD("block-build", new Object[]{"allow", "deny"}, ContextFlag.BREAK, ContextFlag.PLACE),
     SAVE_ITEMS("save-items", new Object[]{"true", "false"}, ContextFlag.DEAD),
     REDSTONE_DISABLE("redstone-disable", new Object[]{"true", "false"}, ContextFlag.INTERACT),
-    FLY_ENABLE("fly-enable", new Object[]{"true", "false"}, ContextFlag.ENTERED_RG);
+    FLY_ENABLE("fly-enable", new Object[]{"true", "false"}, ContextFlag.MOVING);
 
     @Getter private final String idFlag;
     @Getter private final Object[] arguments;
