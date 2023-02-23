@@ -27,26 +27,36 @@ public class RegionFlagCommand extends ECommand<RegionFlagCommand> {
                 new Object[]{
                         new TabViewCommand(0, new Object[]{"flag", "info"}),
                         new TabViewCommand(1, new Object[]{"<inter-region-name>"}),
-                        new TabViewCommand(2, new Object[]{"block-build"}),
-                        new TabViewCommand(3, new Object[]{"<inter-block-name> or ALL"}),
-                        new TabViewCommand(4, new Object[]{"allow", "deny"})
+                        new TabViewCommand(2, new Object[]{"<inter-flag-name>"}),
+                        new TabViewCommand(3, new Object[]{"<valid-argument>"}),
+                        new TabViewCommand(4, new Object[]{"<argument-state>"})
                 }
         );
     }
 
     @Override
-    public boolean execute(CommandSender sender, String[] args) throws InstantiationException, IllegalAccessException {
+    public boolean execute(CommandSender sender, String[] args) {
         Player player = (Player) sender;
 
-        if(args[0] == null) return true;
+        if(args.length == 0) {
+            player.sendMessage(getHelpCommand());
+            return true;
+        }
 
         RegionManager regionManager = WGBukkit.getRegionManager(player.getWorld());
 
         if (regionManager == null) return true;
 
-        ProtectedRegion region = regionManager.getRegion(args[1]);
+        ProtectedRegion region;
 
         if(args[0].equalsIgnoreCase("flag")) {
+
+            if(args.length < 4) {
+                player.sendMessage(getHelpCommand());
+                return true;
+            }
+
+            region = regionManager.getRegion(args[1]);
 
             if (region == null) {
                 player.sendMessage("Регион не существует!");
@@ -87,6 +97,14 @@ public class RegionFlagCommand extends ECommand<RegionFlagCommand> {
         }
 
         else if (args[0].equalsIgnoreCase("info")) {
+
+            if(args.length < 2) {
+                player.sendMessage(getHelpCommand());
+                return true;
+            }
+
+            region = regionManager.getRegion(args[1]);
+
             if (region == null) {
                 player.sendMessage("Регион не существует!");
                 return true;
@@ -99,5 +117,10 @@ public class RegionFlagCommand extends ECommand<RegionFlagCommand> {
     @Override
     public RegionFlagCommand getInstance() {
         return this;
+    }
+
+    @Override
+    public String getHelpCommand() {
+        return ">> Help command:\n/drg flag <inter-region-name> <inter-flag-name> <valid-argument> <argument-state>\n/drg info <inter-region-name>";
     }
 }

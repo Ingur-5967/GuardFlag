@@ -14,4 +14,7 @@ public interface ECommandHelper extends CommandExecutor, TabCompleter {
     List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args);
 
 
+    String getHelpCommand();
+
+
 }

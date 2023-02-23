@@ -68,10 +68,12 @@ public abstract class GMenu<T extends GMenu<?>> {
 
             if(meta != null) {
                 meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', file.getString("items." + id + ".name")));
+
                 PlaceholderManager<List<String>> placeholderManager = new PlaceholderManager<>(
                         new String[]{"{current_elements}", "{valid_members}", "{last_edit_flags}"},
                         new String[]{"123", "213", "321"}, file.getStringList("items." + id + ".lore")
                 );
+
                 meta.setLore(ReplaceUtils.getColoredList(placeholderManager.getReplacedElement()));
                 meta.addItemFlags(ItemFlag.values());
                 item.setItemMeta(meta);
