@@ -1,28 +1,28 @@
-Items:
+items:
   0:
-    Slot: 12
-    Name: "&dФлаги"
-    ItemStack: IRON_SWORD
-    Id: "Item_Flags"
-    Lore:
+    slot: 12
+    name: "&dФлаги"
+    itemstack: IRON_SWORD
+    id: "Item_Flags"
+    lore:
       - " "
-      - "&F>> Затронутые элементы: &c#ВСЕ БУДЕТ# "
+      - "&F>> Затронутые элементы: &c{current_elements} "
       - " "
   1:
-    Slot: 13
-    Name: "&dУчастники"
-    ItemStack: GOLD_BOOTS
-    Id: "Item_Members"
-    Lore:
+    slot: 13
+    name: "&dУчастники"
+    itemstack: GOLD_BOOTS
+    id: "Item_Members"
+    lore:
       - " "
-      - "&F>> Количество валидиных участников: &c#ВСЕ БУДЕТ# "
+      - "&F>> Количество валидиных участников: &c{valid_members} "
       - " "
   2:
-    Slot: 14
-    Name: "&dРегион"
-    ItemStack: ARROW
-    Id: "Item_Region"
-    Lore:
+    slot: 14
+    name: "&dРегион"
+    itemstack: ARROW
+    id: "Item_Region"
+    lore:
       - " "
-      - "&F>> Последнее изменение флага: &c#ВСЕ БУДЕТ# "
+      - "&F>> Последнее изменение флага: &c{last_edit_flags} "
       - " "

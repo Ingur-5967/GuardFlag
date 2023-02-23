@@ -37,7 +37,7 @@ public class GUIManager {
         Yaml file = FileUtils.getDirectoryFile(DirectorySource.MENU.getType(), gui.getFileControllerName());
         List<Integer> activeComponents = new ArrayList<>();
         for (int i = 0; i < gui.getSlots(); i++) {
-            if(file.getString("Items." + i) == null) continue;
+            if(file.getString("items." + i) == null) continue;
             activeComponents.add(i);
         }
         return activeComponents;

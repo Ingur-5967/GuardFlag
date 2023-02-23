@@ -14,7 +14,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import ru.solomka.guard.config.Yaml;
 import ru.solomka.guard.config.enums.DirectorySource;
 import ru.solomka.guard.config.files.FileUtils;
+import ru.solomka.guard.core.flag.utils.GLogger;
 import ru.solomka.guard.core.gui.GUIManager;
+import ru.solomka.guard.core.gui.PlaceholderManager;
 import ru.solomka.guard.core.gui.module.entity.GComponentMenu;
 import ru.solomka.guard.core.gui.module.entity.GComponentOptional;
 import ru.solomka.guard.core.gui.module.entity.GMenuAdapter;
@@ -22,6 +24,7 @@ import ru.solomka.guard.core.gui.tools.InventoryUtils;
 import ru.solomka.guard.core.gui.tools.ReplaceUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Data
@@ -55,28 +58,33 @@ public abstract class GMenu<T extends GMenu<?>> {
 
             ItemStack item;
             try {
-                item = new ItemStack(Material.getMaterial(file.getString("Items." + id + ".ItemStack")));
+                item = new ItemStack(Material.getMaterial(file.getString("items." + id + ".itemstack")));
             } catch (NullPointerException e) {
-                throw new NullPointerException("Material '" + file.getString("Items." + id + ".ItemStack") + "' is doesnt be found");
+                throw new NullPointerException("Material '" + file.getString("items." + id + ".itemstack") + "' is doesnt be found");
             }
 
             meta = item.getItemMeta();
 
+
             if(meta != null) {
-                meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', file.getString("Items." + id + ".Name")));
-                meta.setLore(ReplaceUtils.getColoredList(file.getStringList("Items." + id + ".Lore")));
+                meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', file.getString("items." + id + ".name")));
+                PlaceholderManager<List<String>> placeholderManager = new PlaceholderManager<>(
+                        new String[]{"{current_elements}", "{valid_members}", "{last_edit_flags}"},
+                        new String[]{"123", "213", "321"}, file.getStringList("items." + id + ".lore")
+                );
+                meta.setLore(ReplaceUtils.getColoredList(placeholderManager.getReplacedElement()));
                 meta.addItemFlags(ItemFlag.values());
                 item.setItemMeta(meta);
             }
 
             componentMenuList.add(new GComponentMenu(
                     new GComponentOptional(
-                            file.getString("Items." + id + ".Id"),
-                            item, file.getInt("Items." + id + ".Slot"), meta
+                            file.getString("items." + id + ".id"),
+                            item, file.getInt("items." + id + ".slot"), meta
                     ),
                     inventory, null
             ));
-            inventory.setItem(file.getInt("Items." + id + ".Slot"), item);
+            inventory.setItem(file.getInt("items." + id + ".slot"), item);
         }
         InventoryUtils.fillEmptySlots(new ItemStack(Material.STAINED_GLASS_PANE, 1, (byte) 7), inventory);
 

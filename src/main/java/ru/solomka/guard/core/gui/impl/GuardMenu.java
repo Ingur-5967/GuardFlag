@@ -19,10 +19,7 @@ public class GuardMenu extends GMenu<GuardMenu> {
         List<GComponentMenu> componentMenuList = new ArrayList<>();
 
         adapter.getComponents().forEach(c -> {
-            c.setTrigger(click -> {
-                click.getWhoClicked().closeInventory();
-                click.getWhoClicked().sendMessage("Все будет потом)");
-            });
+            c.setTrigger(click -> click.setCancelled(true));
             componentMenuList.add(c);
         });
         return componentMenuList;

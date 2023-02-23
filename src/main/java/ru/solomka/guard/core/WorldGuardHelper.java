@@ -25,7 +25,10 @@ public class WorldGuardHelper {
         return (WorldGuardPlugin) plugin;
     }
 
-    public static @Nullable ProtectedRegion getRegionOfContainsBlock(@NotNull Block block) {
+    public static ProtectedRegion getRegionOfContainsBlock(Block block) {
+
+        if(block == null) return null;
+
         for(Map.Entry<String, ProtectedRegion> aMap : getRegionManager(block.getWorld()).getRegions().entrySet()) {
             if(aMap.getValue().contains(block.getX(), block.getY(), block.getZ()))
                 return aMap.getValue();

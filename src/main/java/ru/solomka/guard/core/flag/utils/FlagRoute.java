@@ -9,10 +9,10 @@ public class FlagRoute {
     @SuppressWarnings("unchecked")
     public static <T extends Comparable<?>> @Nullable T getParamsFlag(String idRegion, String idFlag) {
         Yaml file = new GRegionManager().getFileRegion(idRegion);
-        return isExistsFlag(idRegion) ? (T) file.getObject("flags." + idFlag + ".params") : null;
+        return isExistsFlag(idRegion, idFlag) ? (T) file.getObject("flags." + idFlag + ".params") : null;
     }
 
-    public static boolean isExistsFlag(String idRegion) {
-        return new GRegionManager().getFileRegion(idRegion).getString("flags." + idRegion) != null;
+    public static boolean isExistsFlag(String idRegion, String idFlag) {
+        return new GRegionManager().getFileRegion(idRegion).getString("flags." + idFlag) != null;
     }
 }

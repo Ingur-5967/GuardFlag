@@ -1,10 +1,11 @@
 package ru.solomka.guard.core.flag;
 
-import org.bukkit.event.Listener;
+import org.bukkit.event.Event;
 import ru.solomka.guard.config.RegistrationService;
 import ru.solomka.guard.config.Yaml;
 import ru.solomka.guard.core.GRegionManager;
 import ru.solomka.guard.core.flag.entity.GFlagComponent;
+import ru.solomka.guard.core.flag.enums.ContextFlag;
 import ru.solomka.guard.core.flag.enums.Flag;
 import ru.solomka.guard.core.flag.module.GFlag;
 import ru.solomka.guard.core.flag.utils.FlagRoute;
@@ -18,12 +19,17 @@ public class FlagManager {
 
     private static final List<GFlag<?, ?>> FLAG_CONTAINER = new ArrayList<>();
 
+    @SuppressWarnings("unchecked")
+    public static <T extends Event> void callController(GFlag<?, ?> flag, T eventArgument) {
+        ((GFlag<T, ?>) flag).onTrigger(eventArgument);
+    }
+
     public static void initCustomFlags(GFlag<?, ?> ...flags) {
         Arrays.stream(flags).forEach(f -> RegistrationService.registrationEvents(f.getInstance()));
         FLAG_CONTAINER.addAll(Arrays.stream(flags).collect(Collectors.toList()));
     }
 
-    public List<GFlagComponent<?, ?>> getFlagsInRegion(String idRegion) throws InstantiationException, IllegalAccessException {
+    public List<GFlagComponent<?, ?>> getFlagsInRegion(String idRegion) {
         List<GFlagComponent<?, ?>> flags = new ArrayList<>();
 
         Yaml file = new GRegionManager().getFileRegion(idRegion);
@@ -33,6 +39,15 @@ public class FlagManager {
             flags.add(new GFlagComponent<>(flag.getIdFlag(), FlagRoute.getParamsFlag(idRegion, flag.getIdFlag()), FlagManager.getControllerOfId(flag.getIdFlag())));
         }
         return flags;
+    }
+
+    public GFlag<?, ?> getGFlagsOf(ContextFlag contextFlag) {
+
+        Flag flag = Arrays.stream(Flag.values()).filter(f -> Arrays.asList(f.getTriggered()).contains(contextFlag)).findAny().orElse(null);
+
+        if(flag == null) return null;
+
+        return FLAG_CONTAINER.stream().filter(f -> f.getIdFlag().equals(flag.getIdFlag())).findAny().orElse(null);
     }
 
     public GFlag<?, ?> getGFlag(String idRegion, String idFlag) {
