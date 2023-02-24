@@ -151,7 +151,7 @@ public class RegionFlagCommand extends ECommand<RegionFlagCommand> {
 
                     if(currentLabel != null)
                         player.sendMessage("Обнаружены повторы! Затронутый элемент <ARGUMENT and STATE>\n" +
-                                ">> Elements: " + currentLabel + "\n (Такие параметр уже есть в регионе)\n");
+                                ">> Elements: " + currentLabel + "\n (Такой параметр уже есть в регионе)\n");
 
                     if(!value.equals("allow") && !value.equals("deny")) {
                         player.sendMessage("Invalid value for flag!");
