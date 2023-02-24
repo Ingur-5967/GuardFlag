@@ -5,9 +5,12 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
 import ru.solomka.guard.Main;
+import ru.solomka.guard.core.flag.utils.GLogger;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import static org.bukkit.configuration.file.YamlConfiguration.loadConfiguration;
@@ -69,15 +72,40 @@ public class Yaml {
         }
     }
 
-    public void set(String path, Object ...value) {
-        if(value.length > 1) {
+    @SafeVarargs // FIXME: 24.02.2023 
+    public final <T> void set(String path, boolean addToList, T... value) {
+        if(addToList) {
             if (yaml.getString(path) == null) yaml.set(path, "");
-            for (Object o : value)
-                getStringList(path).add(o.toString());
+
+            if(value.length > 2)
+                yaml.getStringList(path).addAll(Arrays.as)
+
+            GLogger.info("break");
+
+            if(value[0] instanceof Collection<?>)
+                yaml.getStringList(path).addAll((Collection<? extends String>) value[0]);
+
+            else {
+
+
+            }
+            for (T o : value) {
+
+                if(o instanceof Collection<?>) {
+                    GLogger.info("TO COLLECTION");
+                    yaml.getStringList(path).addAll((Collection<? extends String>) o);
+                } else {
+                    GLogger.info("TO String");
+
+
+
+                    yaml.getStringList(path).add(String.valueOf(o));
+                }
+            }
         }
-        else {
-            yaml.set(path, value[0]);
-        }
+
+        else yaml.set(path, value[0]);
+
         reload();
     }
 
@@ -117,22 +145,22 @@ public class Yaml {
     }
 
     public int getInt(String path, int def, boolean restore) {
-        if (restore) if (this.getString(path) == null) set(path, def);
+        if (restore) if (this.getString(path) == null) set(path, false, def);
         return this.getInt(path);
     }
 
     public long getLong(String path, long def, boolean restore) {
-        if (restore) if (this.getString(path) == null) set(path, def);
+        if (restore) if (this.getString(path) == null) set(path, false, def);
         return this.getLong(path);
     }
 
     public double getDouble(String path, double def, boolean restore) {
-        if (restore) if (this.getString(path) == null) set(path, def);
+        if (restore) if (this.getString(path) == null) set(path, false, def);
         return this.getDouble(path);
     }
 
     public String getString(String path, String def, boolean restore) {
-        if (restore) if (this.getString(path) == null) set(path, def);
+        if (restore) if (this.getString(path) == null) set(path, false, def);
         return this.getString(path);
     }
 

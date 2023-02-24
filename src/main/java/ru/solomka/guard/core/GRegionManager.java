@@ -15,7 +15,7 @@ public class GRegionManager {
         
         if (getFileRegion(idRegion) == null) {
             data = FileUtils.getDirectoryFile(DirectorySource.DATA.getType(), "region_" + idRegion);
-            data.set("flags", "[]");
+            data.set("flags", false, "[]");
         }
 
         return getFileRegion(idRegion) == null ? data : getFileRegion(idRegion);

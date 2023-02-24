@@ -18,9 +18,10 @@ import java.util.Objects;
 
 public class WorldGuardHelper {
 
-    public static @NotNull WorldGuardPlugin getGuardInstance() {
+    public static WorldGuardPlugin getGuardInstance() {
         Plugin plugin = Main.getInstance().getServer().getPluginManager().getPlugin("WorldGuard");
         if(plugin == null) {
+            Main.getInstance().onDisable();
             throw new NullPointerException("WorldGuard plugin cannot be null!");
         }
         return (WorldGuardPlugin) plugin;

@@ -6,6 +6,7 @@ import ru.solomka.guard.command.CommandManager;
 import ru.solomka.guard.command.module.impl.RegionFlagCommand;
 import ru.solomka.guard.config.RegistrationService;
 import ru.solomka.guard.config.enums.DirectorySource;
+import ru.solomka.guard.core.WorldGuardHelper;
 import ru.solomka.guard.core.flag.FlagManager;
 import ru.solomka.guard.core.flag.event.handler.GuardEntryHarm;
 import ru.solomka.guard.core.flag.event.handler.GuardEntryInteract;
