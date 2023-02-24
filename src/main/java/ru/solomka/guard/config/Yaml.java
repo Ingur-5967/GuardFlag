@@ -75,7 +75,7 @@ public class Yaml {
     @SafeVarargs // FIXME: 24.02.2023 
     public final <T> void set(String path, boolean addToList, T... value) {
         if(addToList) {
-            if (yaml.getString(path) == null) yaml.set(path, "");
+           /*if (yaml.getString(path) == null) yaml.set(path, "");
 
             if(value.length > 2)
                 yaml.getStringList(path).addAll(Arrays.as)
@@ -102,6 +102,10 @@ public class Yaml {
                     yaml.getStringList(path).add(String.valueOf(o));
                 }
             }
+
+
+
+            */
         }
 
         else yaml.set(path, value[0]);

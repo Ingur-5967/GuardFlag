@@ -71,12 +71,12 @@ public abstract class GMenu<T extends GMenu<?>> {
             if(meta != null) {
                 meta.setDisplayName(translateAlternateColorCodes('&', file.getString("items." + id + ".name")));
 
-                PlaceholderManager<List<String>> placeholderManager = new PlaceholderManager<>(
+                PlaceholderManager placeholderManager = new PlaceholderManager(
                         new String[]{"{current_elements}", "{valid_members}", "{last_edit_flags}"},
-                        new String[]{"123", "213", "321"}, file.getStringList("items." + id + ".lore")
+                        new String[]{"123", "213", "321"}
                 );
 
-                meta.setLore(ReplaceUtils.getColoredList(placeholderManager.getReplacedElement()));
+                meta.setLore(ReplaceUtils.getColoredList(placeholderManager.getReplacedElement(file.getStringList("items." + id + ".lore"))));
                 meta.addItemFlags(ItemFlag.values());
                 item.setItemMeta(meta);
             }
