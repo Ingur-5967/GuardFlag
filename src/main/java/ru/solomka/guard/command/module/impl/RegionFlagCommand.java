@@ -1,4 +1,4 @@
-package ru.solomka.guard.command.impl;
+package ru.solomka.guard.command.module.impl;
 
 import com.sk89q.worldguard.bukkit.WGBukkit;
 import com.sk89q.worldguard.protection.managers.RegionManager;

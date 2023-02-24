@@ -4,6 +4,7 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import ru.solomka.guard.command.module.ECommand;
+import ru.solomka.guard.core.flag.utils.GLogger;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -31,6 +32,6 @@ public class CommandBuilder {
     }
 
     public void build() {
-        System.out.printf("Command '/%s' success registration\n", command.getSyntax());
+        GLogger.info("Command '/" + command.getSyntax() + "' success registration");
     }
 }

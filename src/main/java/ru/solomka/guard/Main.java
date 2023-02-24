@@ -3,7 +3,7 @@ package ru.solomka.guard;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 import ru.solomka.guard.command.CommandManager;
-import ru.solomka.guard.command.impl.RegionFlagCommand;
+import ru.solomka.guard.command.module.impl.RegionFlagCommand;
 import ru.solomka.guard.config.RegistrationService;
 import ru.solomka.guard.config.enums.DirectorySource;
 import ru.solomka.guard.core.flag.FlagManager;

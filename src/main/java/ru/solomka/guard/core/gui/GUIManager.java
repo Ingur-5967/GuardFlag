@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import ru.solomka.guard.config.Yaml;
 import ru.solomka.guard.config.enums.DirectorySource;
 import ru.solomka.guard.config.files.FileUtils;
+import ru.solomka.guard.core.flag.utils.GLogger;
 import ru.solomka.guard.core.gui.module.GMenu;
 import ru.solomka.guard.core.gui.module.entity.GComponentMenu;
 
@@ -23,10 +24,7 @@ public class GUIManager {
 
     public static void initMenus(GMenu<?> ...gui) {
         MENUS_CONTAINER.addAll(Arrays.stream(gui).collect(Collectors.toList()));
-
-
-
-        System.out.printf("Successfully registered '%s' interfaces", gui.length);
+        GLogger.info("Successfully registered '" + gui.length + "' interfaces");
     }
 
     public void callGUI(@NotNull GMenu<?> menu, Player player) {

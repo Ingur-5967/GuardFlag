@@ -22,7 +22,6 @@ public class PlaceholderManager<T> {
         }
 
         for (int pI = 0; pI < placeholders.length; pI++) {
-
             if(target instanceof List<?>) {
                 List<String> currentList = (List<String>) target;
                 int fPI = pI;

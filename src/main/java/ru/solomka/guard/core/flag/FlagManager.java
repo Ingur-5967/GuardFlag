@@ -1,6 +1,7 @@
 package ru.solomka.guard.core.flag;
 
 import org.bukkit.event.Event;
+import org.bukkit.event.Listener;
 import ru.solomka.guard.config.RegistrationService;
 import ru.solomka.guard.config.Yaml;
 import ru.solomka.guard.core.GRegionManager;
@@ -25,7 +26,7 @@ public class FlagManager {
     }
 
     public static void initCustomFlags(GFlag<?, ?> ...flags) {
-        Arrays.stream(flags).forEach(f -> RegistrationService.registrationEvents(f.getInstance()));
+        Arrays.stream(flags).forEach(f -> RegistrationService.registrationEvents((Listener) f.getInstance()));
         FLAG_CONTAINER.addAll(Arrays.stream(flags).collect(Collectors.toList()));
     }
 

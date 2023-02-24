@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.bukkit.ChatColor.*;
+
 @Data
 public abstract class GMenu<T extends GMenu<?>> {
 
@@ -67,7 +69,7 @@ public abstract class GMenu<T extends GMenu<?>> {
 
 
             if(meta != null) {
-                meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', file.getString("items." + id + ".name")));
+                meta.setDisplayName(translateAlternateColorCodes('&', file.getString("items." + id + ".name")));
 
                 PlaceholderManager<List<String>> placeholderManager = new PlaceholderManager<>(
                         new String[]{"{current_elements}", "{valid_members}", "{last_edit_flags}"},

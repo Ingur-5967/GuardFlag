@@ -31,7 +31,7 @@ public class GRegionManager {
         return getFileRegion(idRegion) == null ? data : getFileRegion(idRegion);
     }
 
-    public GFlagComponent<?, ?> getParamsFlag(String idRegion, String idFlag) {
+    public GFlagComponent<?, ?> getFlagComponent(String idRegion, String idFlag) {
         return new GFlagComponent<>(idFlag, FlagRoute.getParamsFlag(idRegion, idFlag), FlagManager.getControllerOfId(idFlag));
     }
 
