@@ -2,6 +2,7 @@ package ru.solomka.guard.core.flag.event.handler;
 
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,16 +19,21 @@ public class GuardEntryMove implements Listener {
 
         Player player = event.getPlayer();
 
-        if (WorldGuardHelper.getRegionOfContainsBlock(event.getTo().getBlock()) == null)
+        Location to = event.getTo();
+        Location from = event.getFrom();
+
+        if (WorldGuardHelper.getRegionOfContainsBlock(to.getBlock()) == null && WorldGuardHelper.getRegionOfContainsBlock(from.getBlock()) == null)
             return;
 
-        ProtectedRegion region = WorldGuardHelper.getRegionOfContainsBlock(event.getTo().getBlock());
+        ProtectedRegion regionTo = WorldGuardHelper.getRegionOfContainsBlock(to.getBlock());
 
-        Bukkit.getPluginManager().callEvent(new RegionMovingEvent(player, event.getFrom(), event.getTo(), region));
+        ProtectedRegion regionFrom = WorldGuardHelper.getRegionOfContainsBlock(from.getBlock());
 
-        if(region.contains(event.getFrom().getBlock().getX(), event.getFrom().getBlock().getY(), event.getFrom().getBlock().getZ())) return;
+        Bukkit.getPluginManager().callEvent(new RegionMovingEvent(player, event.getFrom(), event.getTo(), regionTo));
 
-        if(region.contains(event.getTo().getBlock().getX(), event.getTo().getBlock().getY(), event.getTo().getBlock().getZ()))
-            Bukkit.getPluginManager().callEvent(new RegionEnteredEvent(player, event.getFrom(), event.getTo(), region));
+        if (regionFrom != null && WorldGuardHelper.isContainsInRegion(regionFrom, from)) return;
+
+        if (regionTo != null && WorldGuardHelper.isContainsInRegion(regionTo, to))
+            Bukkit.getPluginManager().callEvent(new RegionEnteredEvent(player, event.getFrom(), event.getTo(), regionTo));
     }
 }

@@ -8,7 +8,7 @@ public enum Flag {
     BLOCK_BUILD("block-build", new Object[]{"allow", "deny"}, ContextFlag.BREAK, ContextFlag.PLACE),
     SAVE_ITEMS("save-items", new Object[]{"true", "false"}, ContextFlag.DEAD),
     REDSTONE_DISABLE("redstone-disable", new Object[]{"true", "false"}, ContextFlag.INTERACT),
-    FLY_ENABLE("fly-enable", new Object[]{"true", "false"}, ContextFlag.MOVING);
+    FLY_ENABLE("fly-enable", new Object[]{"true", "false"}, ContextFlag.ENTERED);
 
     @Getter private final String idFlag;
     @Getter private final Object[] arguments;

@@ -15,8 +15,7 @@ public class GuardEntryInteract implements Listener {
     public void onInteract(PlayerInteractEvent event) {
         Block block = event.getClickedBlock();
 
-        if (WorldGuardHelper.getRegionOfContainsBlock(block) == null)
-            return;
+        if (WorldGuardHelper.getRegionOfContainsBlock(block) == null) return;
 
         Bukkit.getPluginManager().callEvent(new RegionInteractItemsEvent(event.getPlayer(), block, WorldGuardHelper.getRegionOfContainsBlock(block)));
     }

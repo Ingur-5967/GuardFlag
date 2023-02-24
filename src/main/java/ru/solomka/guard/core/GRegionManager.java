@@ -1,21 +1,11 @@
 package ru.solomka.guard.core;
 
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
 import ru.solomka.guard.config.Yaml;
 import ru.solomka.guard.config.enums.DirectorySource;
 import ru.solomka.guard.config.files.FileUtils;
-import ru.solomka.guard.core.entity.GRegionBlock;
-import ru.solomka.guard.core.entity.GStateBlock;
 import ru.solomka.guard.core.flag.FlagManager;
 import ru.solomka.guard.core.flag.entity.GFlagComponent;
-import ru.solomka.guard.core.flag.module.GFlag;
 import ru.solomka.guard.core.flag.utils.FlagRoute;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class GRegionManager {
 

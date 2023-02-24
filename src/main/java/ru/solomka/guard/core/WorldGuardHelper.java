@@ -4,6 +4,7 @@ import com.sk89q.worldguard.bukkit.WGBukkit;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.plugin.Plugin;
@@ -34,6 +35,10 @@ public class WorldGuardHelper {
                 return aMap.getValue();
         }
         return null;
+    }
+
+    public static boolean isContainsInRegion(ProtectedRegion region, Location location) {
+        return region.contains(location.getBlock().getX(), location.getBlock().getY(), location.getBlock().getZ());
     }
 
     public static RegionManager getRegionManager(World world) {

@@ -5,5 +5,6 @@ public enum ContextFlag {
     INTERACT,
     PLACE,
     MOVING,
-    DEAD
+    DEAD,
+    ENTERED
 }

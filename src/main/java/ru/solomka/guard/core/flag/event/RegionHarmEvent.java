@@ -6,7 +6,7 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.block.BlockEvent;
-import ru.solomka.guard.core.flag.enums.HarmType;
+import ru.solomka.guard.core.flag.enums.world.HarmType;
 
 
 public class RegionHarmEvent extends Event implements Cancellable {
