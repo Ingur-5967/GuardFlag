@@ -17,6 +17,7 @@ import ru.solomka.guard.core.flag.module.impl.TNTFlag;
 import ru.solomka.guard.core.gui.ControllerManager;
 import ru.solomka.guard.core.gui.GUIManager;
 import ru.solomka.guard.core.gui.module.impl.GuardMenu;
+import ru.solomka.guard.core.gui.module.impl.ViewRegionsMenu;
 import ru.solomka.guard.core.gui.module.impl.controllers.ClickInventoryController;
 import ru.solomka.guard.event.TriggeredRegionEvent;
 
@@ -34,13 +35,13 @@ public class Main extends JavaPlugin {
         RegistrationService.registrationEvents(new TriggeredRegionEvent(), new GuardEntryInteract(), new GuardEntry(), new GuardEntryHarm(), new GuardEntryMove());
 
         RegistrationService.initConfigs(DirectorySource.DATA, "example");
-        RegistrationService.initConfigs(DirectorySource.MENU, "info_menu");
+        RegistrationService.initConfigs(DirectorySource.MENU, "info_menu", "view_regions");
 
         FlagManager.initCustomFlags(new TNTFlag(), new BuildBlockFlag(), new FlyFlag());
 
         new ControllerManager().initControllers(new ClickInventoryController());
 
-        GUIManager.initMenus(new GuardMenu());
+        GUIManager.initMenus(new GuardMenu(), new ViewRegionsMenu());
     }
 
     @Override

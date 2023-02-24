@@ -6,14 +6,26 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import ru.solomka.guard.Main;
 import ru.solomka.guard.command.module.ECommand;
 import ru.solomka.guard.command.module.entity.TabViewCommand;
 import ru.solomka.guard.command.module.enums.SenderType;
+import ru.solomka.guard.config.enums.DirectorySource;
 import ru.solomka.guard.core.GRegionManager;
 import ru.solomka.guard.core.flag.FlagManager;
+import ru.solomka.guard.core.flag.enums.Flag;
 import ru.solomka.guard.core.flag.module.GFlag;
+import ru.solomka.guard.core.flag.utils.GLogger;
 import ru.solomka.guard.core.gui.GUIManager;
 import ru.solomka.guard.core.gui.module.impl.GuardMenu;
+import ru.solomka.guard.core.gui.module.impl.ViewRegionsMenu;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class RegionFlagCommand extends ECommand<RegionFlagCommand> {
 
@@ -25,14 +37,15 @@ public class RegionFlagCommand extends ECommand<RegionFlagCommand> {
                 null,
                 false,
                 new Object[]{
-                        new TabViewCommand(0, new Object[]{"flag", "info"}),
+                        new TabViewCommand(0, new Object[]{"flag", "info", "regions"}),
                         new TabViewCommand(1, new Object[]{"<inter-region-name>"}),
                         new TabViewCommand(2, new Object[]{"<inter-flag-name>"}),
-                        new TabViewCommand(3, new Object[]{"<valid-argument>"}),
-                        new TabViewCommand(4, new Object[]{"<argument-state>"})
+                        new TabViewCommand(3, new Object[]{"<argument:state> OR <argument-state>"}),
                 }
         );
     }
+
+    // /drg flag/info/regions <rg-name> <flag-name> <argument:state>
 
     @Override
     public boolean execute(CommandSender sender, String[] args) {
@@ -51,7 +64,7 @@ public class RegionFlagCommand extends ECommand<RegionFlagCommand> {
 
         if(args[0].equalsIgnoreCase("flag")) {
 
-            if(args.length < 4) {
+            if(args.length < 3) {
                 player.sendMessage(getHelpCommand());
                 return true;
             }
@@ -68,15 +81,28 @@ public class RegionFlagCommand extends ECommand<RegionFlagCommand> {
                 return true;
             }
 
-            if (Material.getMaterial(args[3].toUpperCase()) == null) {
-                player.sendMessage("Введене некорректный материал");
+            String flagName = args[2].toLowerCase();
+
+            Flag targetFlag = Arrays.stream(Flag.values()).filter(f -> f.getIdFlag().equals(flagName)).findAny().orElse(null);
+
+            if(targetFlag == null) {
+                player.sendMessage("Флаг не найден!");
                 return true;
             }
 
-            String state = args[4].toLowerCase();
+            String state = args[3].toLowerCase();
 
-            if (!state.equals("allow") && !state.equals("deny")) {
-                player.sendMessage("Введен неверный параметр для флага! (Варианты: allow/deny)");
+            String argument = Arrays.stream(targetFlag.getArguments()).filter(t -> String.valueOf(t).equals(state)).map(String::valueOf).findAny().orElse(null);
+
+
+            if (argument == null) {
+
+                StringBuilder stringBuilder = new StringBuilder();
+
+                for (int i = 0; i < targetFlag.getArguments().length; i++)
+                    stringBuilder.append(targetFlag.getArguments()[i]).append(i == targetFlag.getArguments().length - 1 ? "" : "/");
+
+                player.sendMessage("Введен неверный параметр для флага! (Варианты: " + stringBuilder + ")");
                 return true;
             }
 
@@ -111,6 +137,25 @@ public class RegionFlagCommand extends ECommand<RegionFlagCommand> {
             }
             new GUIManager().callGUI(new GuardMenu(), player);
         }
+
+        else if(args[0].equalsIgnoreCase("regions")) {
+
+
+            File dir = new File(Main.getInstance().getDataFolder() + File.separator + DirectorySource.DATA);
+
+            if(dir.isDirectory()) {
+                if(dir.listFiles() == null) return true;
+
+                //TODO
+
+                List<File> files = Arrays.stream(Objects.requireNonNull(dir.listFiles())).collect(Collectors.toList());
+
+                new GUIManager().callGUI(new ViewRegionsMenu(), player);
+            }
+
+
+        }
+
         return true;
     }
 
@@ -121,6 +166,8 @@ public class RegionFlagCommand extends ECommand<RegionFlagCommand> {
 
     @Override
     public String getHelpCommand() {
-        return ">> Help command:\n/drg flag <inter-region-name> <inter-flag-name> <valid-argument> <argument-state>\n/drg info <inter-region-name>";
+        return ">> Help command:\n/drg flag <inter-region-name> <inter-flag-name> (<argument:state> OR <argument-state>)\n" +
+                "/drg info <inter-region-name>\n" +
+                "/drg regions";
     }
 }

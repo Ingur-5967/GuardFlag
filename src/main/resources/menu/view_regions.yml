@@ -1,0 +1,7 @@
+items:
+  0:
+    slot: 10
+    name: "test"
+    id: "Items_test"
+    itemstack: DIRT
+    lore: []

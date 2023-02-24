@@ -14,6 +14,7 @@ import ru.solomka.guard.core.gui.module.entity.GComponentMenu;
 import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -52,4 +53,9 @@ public class GUIManager {
     public GMenu<?> getGUIOfTitle(String title) {
         return MENUS_CONTAINER.stream().filter(m -> m.getTitle().equals(title)).findAny().orElse(null);
     }
+
+    public static class GUIPageManager {
+        //TODO
+    }
+
 }

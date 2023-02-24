@@ -3,10 +3,15 @@ package ru.solomka.guard.core.flag.module.impl;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.entity.Player;
 import ru.solomka.guard.core.WorldGuardHelper;
+import ru.solomka.guard.core.flag.FlagManager;
+import ru.solomka.guard.core.flag.entity.GFlagComponent;
 import ru.solomka.guard.core.flag.enums.Flag;
 import ru.solomka.guard.core.flag.event.RegionEnteredEvent;
 import ru.solomka.guard.core.flag.event.RegionMovingEvent;
 import ru.solomka.guard.core.flag.module.GFlag;
+import ru.solomka.guard.core.flag.utils.GLogger;
+
+import java.util.List;
 
 public class FlyFlag extends GFlag<RegionEnteredEvent, FlyFlag> {
 
@@ -19,6 +24,14 @@ public class FlyFlag extends GFlag<RegionEnteredEvent, FlyFlag> {
 
         Player player = event.getPlayer();
         ProtectedRegion region = event.getRegion();
+
+        GLogger.info("break");
+
+        FlagManager flagManager = new FlagManager();
+
+        List<GFlagComponent<?, ?>> flags = flagManager.getFlagsInRegion(region.getId());
+
+        flags.forEach(f -> GLogger.info(f.getId()));
 
         player.sendMessage("Fly success enabled! Region detected");
 
