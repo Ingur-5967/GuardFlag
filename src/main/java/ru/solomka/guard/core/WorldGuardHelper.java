@@ -27,12 +27,9 @@ public class WorldGuardHelper {
     }
 
     public static ProtectedRegion getRegionOfContainsBlock(Block block) {
-
         if(block == null) return null;
-
         for(Map.Entry<String, ProtectedRegion> aMap : getRegionManager(block.getWorld()).getRegions().entrySet()) {
-            if(aMap.getValue().contains(block.getX(), block.getY(), block.getZ()))
-                return aMap.getValue();
+            if(isContainsInRegion(aMap.getValue(), block.getLocation())) return aMap.getValue();
         }
         return null;
     }
