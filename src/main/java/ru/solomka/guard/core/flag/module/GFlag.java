@@ -33,6 +33,4 @@ public abstract class GFlag<C extends Event, T extends GFlag<?, ?>> extends GFla
     public <P> boolean checkArgument(P value, Predicate<P> predicate) {
         return predicate.test(value);
     }
-
-
 }

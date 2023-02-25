@@ -53,7 +53,8 @@ public class BuildBlockFlag extends GFlag<RegionHarmEvent, BuildBlockFlag> {
 
         for(String paramHeader : params) {
 
-            if(!checkArgument(paramHeader, s -> Arrays.stream(Material.values()).map(Material::name).collect(Collectors.toList()).contains(s)))
+            if(!checkArgument(paramHeader, hMaterial -> Flag.BLOCK_BUILD.getValidArguments().stream()
+                    .map(f -> Material.getMaterial(f.toString())).collect(Collectors.toList()).contains(Material.getMaterial(hMaterial))))
                 continue;
 
             states.put(Material.getMaterial(paramHeader), file.getString("flags." + getIdFlag() + ".params." + paramHeader));
