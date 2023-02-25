@@ -40,7 +40,6 @@ public class TriggeredRegionEvent implements Listener {
         switch (event.getHarmType()) {
             case BREAK: {
                 if(flagManager.getGFlagsOf(ContextFlag.BREAK) == null) return;
-                GLogger.info("point");
                 flagManager.getGFlagsOf(ContextFlag.BREAK).forEach(f -> FlagManager.callController(f, event));
                 break;
             }

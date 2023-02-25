@@ -1,11 +1,14 @@
 package ru.solomka.guard.core.flag.module.impl;
 
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockEvent;
 import org.bukkit.inventory.ItemStack;
+import ru.solomka.guard.Main;
 import ru.solomka.guard.config.Yaml;
 import ru.solomka.guard.core.GRegionManager;
 import ru.solomka.guard.core.WorldGuardHelper;
@@ -25,6 +28,8 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static org.bukkit.ChatColor.*;
+
 public class BuildBlockFlag extends GFlag<RegionHarmEvent, BuildBlockFlag> {
 
     public BuildBlockFlag() {
@@ -35,17 +40,24 @@ public class BuildBlockFlag extends GFlag<RegionHarmEvent, BuildBlockFlag> {
     public void onTrigger(RegionHarmEvent event) {
 
         Block block = event.getEvent().getBlock();
+        Player player = event.getPlayer();
         ProtectedRegion region = WorldGuardHelper.getRegionOfContainsBlock(block);
 
         Yaml file = new GRegionManager().getFileRegion(region.getId());
 
-        if(!FlagRoute.isExistsFlag(region.getId(), Flag.BLOCK_BUILD.getIdFlag()))
+        if(!FlagRoute.isExistsFlag(region.getId(), Flag.BLOCK_BUILD.getIdFlag())) {
+            player.sendMessage(getFailedMessage());
             event.setCancelled(true);
+            return;
+        }
 
         List<String> params = FlagRoute.getParamsFlag(region.getId(), Flag.BLOCK_BUILD.getIdFlag());
 
-        if(params == null)
+        if(params == null) {
+            player.sendMessage(getFailedMessage());
             event.setCancelled(true);
+            return;
+        }
 
         Map<Material, String> states = new HashMap<>();
 
@@ -59,16 +71,23 @@ public class BuildBlockFlag extends GFlag<RegionHarmEvent, BuildBlockFlag> {
         }
 
         for(Map.Entry<Material, String> aMap : states.entrySet()) {
-            if(aMap.getValue().equals("deny") && InventoryUtils.compareMaterials(aMap.getKey(), block.getType())) {
-                event.getPlayer().sendMessage("Владелец региона запретил взаимодействовать с данным блоком");
-                event.setCancelled(true);
-            }
+            if (InventoryUtils.compareMaterials(aMap.getKey(), block.getType()))
+                event.setCancelled(!aMap.getValue().equals("allow"));
         }
-        event.setCancelled(true);
+
+        if(file.getString("flags." + getIdFlag() + ".params." + block.getType().name()) == null) {
+            player.sendMessage(getFailedMessage());
+            event.setCancelled(true);
+        }
     }
 
     @Override
     public BuildBlockFlag getInstance() {
         return this;
+    }
+
+    @Override
+    public String getFailedMessage() {
+        return translateAlternateColorCodes('&', "&7Вы не можете &c&lсовершить&7 данное действие в чужом регионе");
     }
 }

@@ -26,6 +26,8 @@ public abstract class GFlag<C extends Event, T extends GFlag<?, ?>> extends GFla
 
     public abstract T getInstance();
 
+    public abstract String getFailedMessage();
+
     public GFlagComponent<?, ?> getCurrentFlag(String idRegion) {
         return new GFlagComponent<>(idFlag, FlagRoute.getParamsFlag(idRegion, idFlag), this);
     }

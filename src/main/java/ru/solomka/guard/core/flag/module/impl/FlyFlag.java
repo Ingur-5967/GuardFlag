@@ -41,4 +41,9 @@ public class FlyFlag extends GFlag<RegionEnteredEvent, FlyFlag> {
     public FlyFlag getInstance() {
         return this;
     }
+
+    @Override
+    public String getFailedMessage() {
+        return "";
+    }
 }
