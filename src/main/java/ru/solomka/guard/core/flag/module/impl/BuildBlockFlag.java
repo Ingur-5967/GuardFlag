@@ -40,30 +40,31 @@ public class BuildBlockFlag extends GFlag<RegionHarmEvent, BuildBlockFlag> {
         Yaml file = new GRegionManager().getFileRegion(region.getId());
 
         if(!FlagRoute.isExistsFlag(region.getId(), Flag.BLOCK_BUILD.getIdFlag()))
-            return;
+            event.setCancelled(true);
 
         List<String> params = FlagRoute.getParamsFlag(region.getId(), Flag.BLOCK_BUILD.getIdFlag());
 
         if(params == null)
-            return;
+            event.setCancelled(true);
 
         Map<Material, String> states = new HashMap<>();
 
         for(String paramHeader : params) {
 
             if(!checkArgument(paramHeader, hMaterial -> Flag.BLOCK_BUILD.getValidArguments().stream()
-                    .map(f -> Material.getMaterial(f.toString())).collect(Collectors.toList()).contains(Material.getMaterial(hMaterial))))
+                    .map(f -> Material.getMaterial(f.toString()).name()).collect(Collectors.toList()).contains(hMaterial)))
                 continue;
 
             states.put(Material.getMaterial(paramHeader), file.getString("flags." + getIdFlag() + ".params." + paramHeader));
         }
 
         for(Map.Entry<Material, String> aMap : states.entrySet()) {
-            if(aMap.getValue().contains("deny") && InventoryUtils.compareMaterials(aMap.getKey(), block.getType())) {
+            if(aMap.getValue().equals("deny") && InventoryUtils.compareMaterials(aMap.getKey(), block.getType())) {
                 event.getPlayer().sendMessage("Владелец региона запретил взаимодействовать с данным блоком");
                 event.setCancelled(true);
             }
         }
+        event.setCancelled(true);
     }
 
     @Override
