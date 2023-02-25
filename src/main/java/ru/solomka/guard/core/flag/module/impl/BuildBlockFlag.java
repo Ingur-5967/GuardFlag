@@ -39,8 +39,6 @@ public class BuildBlockFlag extends GFlag<RegionHarmEvent, BuildBlockFlag> {
 
         Yaml file = new GRegionManager().getFileRegion(region.getId());
 
-        GLogger.info("execute");
-
         if(!FlagRoute.isExistsFlag(region.getId(), Flag.BLOCK_BUILD.getIdFlag()))
             return;
 
@@ -61,7 +59,7 @@ public class BuildBlockFlag extends GFlag<RegionHarmEvent, BuildBlockFlag> {
         }
 
         for(Map.Entry<Material, String> aMap : states.entrySet()) {
-            if(InventoryUtils.compareMaterials(aMap.getKey(), block.getType())) {
+            if(aMap.getValue().contains("deny") && InventoryUtils.compareMaterials(aMap.getKey(), block.getType())) {
                 event.getPlayer().sendMessage("Владелец региона запретил взаимодействовать с данным блоком");
                 event.setCancelled(true);
             }
