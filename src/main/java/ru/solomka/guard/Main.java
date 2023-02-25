@@ -43,7 +43,7 @@ public class Main extends JavaPlugin {
         CommandManager.init(new RegionFlagCommand());
         new ControllerManager().initControllers(new ClickInventoryController());
 
-        GRegionManager.checkAllRegions();
+        WorldGuardHelper.checkAllRegions();
     }
 
     @Override

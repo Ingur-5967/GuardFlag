@@ -14,10 +14,17 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.solomka.guard.Main;
+import ru.solomka.guard.config.Yaml;
+import ru.solomka.guard.config.enums.DirectorySource;
+import ru.solomka.guard.config.files.FileUtils;
 import ru.solomka.guard.core.flag.utils.GLogger;
 
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class WorldGuardHelper {
 
@@ -52,6 +59,34 @@ public class WorldGuardHelper {
             return new Location(w, X, Y, Z);
         }
         return null;
+    }
+
+    public static void checkAllRegions() {
+        File dir = new File(Main.getInstance().getDataFolder() + File.separator + DirectorySource.DATA.getType());
+
+        if (!dir.exists() || !dir.isDirectory()) return;
+
+        if (dir.listFiles() == null) return;
+
+        List<File> files = Arrays.stream(Objects.requireNonNull(dir.listFiles())).collect(Collectors.toList());
+
+        for (File f : files) {
+
+            if (!f.getName().contains("_")) return;
+
+            String regionName = f.getName().split("_")[1].split("\\.")[0];
+            Yaml file = FileUtils.getDirectoryFile(DirectorySource.DATA.getType(), f.getName().split("\\.yml")[0]);
+
+            if (file.getString("world") == null || Bukkit.getWorld(file.getString("world")) == null)
+                f.delete();
+            else {
+                String nameWorld = FileUtils.getDirectoryFile(DirectorySource.DATA.getType(), f.getName()).getString("world");
+                RegionManager regionManager = WorldGuardHelper.getRegionManager(Bukkit.getWorld(nameWorld));
+
+                if (regionManager.getRegion(regionName) == null)
+                    f.delete();
+            }
+        }
     }
 
     public static WorldGuardPlugin getGuardInstance() {
