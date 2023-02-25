@@ -51,7 +51,6 @@ public class TriggeredRegionEvent implements Listener {
             case INTERACT_WITH_ITEM: {
                 if(flagManager.getGFlagsOf(ContextFlag.INTERACT) == null) return;
                 flagManager.getGFlagsOf(ContextFlag.INTERACT).forEach(f -> FlagManager.callController(f, event));
-                break;
             }
         }
     }
