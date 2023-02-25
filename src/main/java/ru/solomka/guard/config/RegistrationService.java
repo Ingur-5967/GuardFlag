@@ -36,6 +36,5 @@ public class RegistrationService {
     public static void registrationEvents(Listener ...listeners) {
         Arrays.stream(listeners).forEach(e -> Bukkit.getPluginManager().registerEvents(e, Main.getInstance()));
         GLogger.info("Listeners success registration ('" + listeners.length + "')");
-
     }
 }

@@ -25,7 +25,7 @@ public class GUIManager {
 
     public static void initMenus(GMenu<?> ...gui) {
         MENUS_CONTAINER.addAll(Arrays.stream(gui).collect(Collectors.toList()));
-        GLogger.info("Successfully registered '" + gui.length + "' interfaces");
+        GLogger.info("Successful registration of the '{count} values' menu".replace("{count}", String.valueOf(gui.length)));
     }
 
     public void callGUI(@NotNull GMenu<?> menu, Player player) {

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.bukkit.configuration.file.YamlConfiguration.loadConfiguration;
 
@@ -33,7 +34,7 @@ public class Yaml {
     public Yaml(String path, String name, boolean mode) {
         if (!new File(Main.getInstance().getDataFolder() + "/" + path, name).exists()) {
             File dir = new File(Main.getInstance().getDataFolder() + "/" + path + "/");
-            if(!dir.exists())
+            if (!dir.exists())
                 dir.mkdir();
             File file = new File(dir, name);
             YamlConfiguration cfg = loadConfiguration(file);
@@ -72,46 +73,11 @@ public class Yaml {
         }
     }
 
-    @SafeVarargs // FIXME: 24.02.2023 
-    public final <T> void set(String path, boolean addToList, T... value) {
-        if(addToList) {
-           /*if (yaml.getString(path) == null) yaml.set(path, "");
-
-            if(value.length > 2)
-                yaml.getStringList(path).addAll(Arrays.as)
-
-            GLogger.info("break");
-
-            if(value[0] instanceof Collection<?>)
-                yaml.getStringList(path).addAll((Collection<? extends String>) value[0]);
-
-            else {
-
-
-            }
-            for (T o : value) {
-
-                if(o instanceof Collection<?>) {
-                    GLogger.info("TO COLLECTION");
-                    yaml.getStringList(path).addAll((Collection<? extends String>) o);
-                } else {
-                    GLogger.info("TO String");
-
-
-
-                    yaml.getStringList(path).add(String.valueOf(o));
-                }
-            }
-
-
-
-            */
-        }
-
-        else yaml.set(path, value[0]);
-
+    public <T> void set(String path, T value) {
+        yaml.set(path, String.valueOf(value));
         reload();
     }
+
 
     public int getInt(String path) {
         long request = this.getLong(path);
@@ -148,27 +114,27 @@ public class Yaml {
         return yaml.getBoolean(path);
     }
 
-    public int getInt(String path, int def, boolean restore) {
-        if (restore) if (this.getString(path) == null) set(path, false, def);
+    public int getInt(String path, int def, boolean restore) throws IOException {
+        if (restore) if (this.getString(path) == null) set(path, def);
         return this.getInt(path);
     }
 
-    public long getLong(String path, long def, boolean restore) {
-        if (restore) if (this.getString(path) == null) set(path, false, def);
+    public long getLong(String path, long def, boolean restore) throws IOException {
+        if (restore) if (this.getString(path) == null) set(path, def);
         return this.getLong(path);
     }
 
-    public double getDouble(String path, double def, boolean restore) {
-        if (restore) if (this.getString(path) == null) set(path, false, def);
+    public double getDouble(String path, double def, boolean restore) throws IOException {
+        if (restore) if (this.getString(path) == null) set(path, def);
         return this.getDouble(path);
     }
 
-    public String getString(String path, String def, boolean restore) {
-        if (restore) if (this.getString(path) == null) set(path, false, def);
+    public String getString(String path, String def, boolean restore) throws IOException {
+        if (restore) if (this.getString(path) == null) set(path, def);
         return this.getString(path);
     }
 
-    public boolean getBoolean(String path, boolean def, boolean restore) {
+    public boolean getBoolean(String path, boolean def, boolean restore) throws IOException {
         if (restore) if (this.getString(path) == null) set(path, def);
         return yaml.getBoolean(path);
     }

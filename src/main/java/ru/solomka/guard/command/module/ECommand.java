@@ -10,6 +10,7 @@ import ru.solomka.guard.command.module.entity.CheckState;
 import ru.solomka.guard.command.module.entity.TabViewCommand;
 import ru.solomka.guard.command.module.enums.SenderType;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -28,7 +29,7 @@ public abstract class ECommand<T extends ECommand<?>> implements ECommandHelper 
     private final boolean sortingArguments;
     private final Object[] toViewElementsWrapper;
 
-    public abstract boolean execute(CommandSender sender, String[] args) throws InstantiationException, IllegalAccessException;
+    public abstract boolean execute(CommandSender sender, String[] args) throws InstantiationException, IllegalAccessException, IOException;
 
     public abstract T getInstance();
 
@@ -47,7 +48,7 @@ public abstract class ECommand<T extends ECommand<?>> implements ECommandHelper 
         }
         try {
             return execute(sender, args);
-        } catch (InstantiationException | IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException | IOException e) {
             throw new RuntimeException(e);
         }
     }

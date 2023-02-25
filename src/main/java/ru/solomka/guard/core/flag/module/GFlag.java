@@ -8,6 +8,8 @@ import ru.solomka.guard.core.flag.entity.GFlagComponent;
 import ru.solomka.guard.core.flag.module.entity.GFlagHelper;
 import ru.solomka.guard.core.flag.utils.FlagRoute;
 
+import java.util.function.Predicate;
+
 @AllArgsConstructor
 public abstract class GFlag<C extends Event, T extends GFlag<?, ?>> extends GFlagHelper<C> {
 
@@ -27,5 +29,10 @@ public abstract class GFlag<C extends Event, T extends GFlag<?, ?>> extends GFla
     public GFlagComponent<?, ?> getCurrentFlag(String idRegion) {
         return new GFlagComponent<>(idFlag, FlagRoute.getParamsFlag(idRegion, idFlag), this);
     }
+
+    public <P> boolean checkArgument(P value, Predicate<P> predicate) {
+        return predicate.test(value);
+    }
+
 
 }
