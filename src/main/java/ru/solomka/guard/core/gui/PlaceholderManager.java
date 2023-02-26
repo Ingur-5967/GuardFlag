@@ -2,8 +2,7 @@ package ru.solomka.guard.core.gui;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Setter;
-import ru.solomka.guard.core.flag.utils.GLogger;
+import ru.solomka.guard.utils.GLogger;
 
 import java.util.List;
 

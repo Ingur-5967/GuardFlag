@@ -7,5 +7,4 @@ import org.bukkit.event.Listener;
 
 public class GFlagHelper<E extends Event> implements Listener {
     public void onTrigger(E event) {}
-    public void onTrigger(Player player, E event) {}
 }

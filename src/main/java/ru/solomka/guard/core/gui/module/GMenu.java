@@ -1,10 +1,7 @@
 package ru.solomka.guard.core.gui.module;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -14,7 +11,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import ru.solomka.guard.config.Yaml;
 import ru.solomka.guard.config.enums.DirectorySource;
 import ru.solomka.guard.config.files.FileUtils;
-import ru.solomka.guard.core.flag.utils.GLogger;
 import ru.solomka.guard.core.gui.GUIManager;
 import ru.solomka.guard.core.gui.PlaceholderManager;
 import ru.solomka.guard.core.gui.module.entity.GComponentMenu;
@@ -24,7 +20,6 @@ import ru.solomka.guard.core.gui.tools.InventoryUtils;
 import ru.solomka.guard.core.gui.tools.ReplaceUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.bukkit.ChatColor.*;

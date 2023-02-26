@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import ru.solomka.guard.Main;
 import ru.solomka.guard.config.enums.DirectorySource;
 import ru.solomka.guard.config.utils.ServiceRegistrationBuilder;
-import ru.solomka.guard.core.flag.utils.GLogger;
+import ru.solomka.guard.utils.GLogger;
 
 import java.util.Arrays;
 

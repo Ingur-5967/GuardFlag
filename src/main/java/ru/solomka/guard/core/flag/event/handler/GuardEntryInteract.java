@@ -7,6 +7,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import ru.solomka.guard.core.WorldGuardHelper;
+import ru.solomka.guard.core.flag.FlagManager;
 import ru.solomka.guard.core.flag.event.RegionInteractItemsEvent;
 
 public class GuardEntryInteract implements Listener {
@@ -23,6 +24,6 @@ public class GuardEntryInteract implements Listener {
 
         if (WorldGuardHelper.getRegionOfContainsBlock(block) == null) return;
 
-        Bukkit.getPluginManager().callEvent(new RegionInteractItemsEvent(event.getPlayer(), block, WorldGuardHelper.getRegionOfContainsBlock(block)));
+        FlagManager.callEvent(new RegionInteractItemsEvent(event.getPlayer(), block, WorldGuardHelper.getRegionOfContainsBlock(block)));
     }
 }

@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import ru.solomka.guard.command.module.ECommand;
-import ru.solomka.guard.core.flag.utils.GLogger;
+import ru.solomka.guard.utils.GLogger;
 
 import java.util.Arrays;
 import java.util.Collections;

@@ -1,8 +1,6 @@
 package ru.solomka.guard.core.flag.module.impl;
 
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.entity.Player;
-import ru.solomka.guard.core.flag.FlagManager;
 import ru.solomka.guard.core.flag.enums.Flag;
 import ru.solomka.guard.core.flag.event.RegionEnteredEvent;
 import ru.solomka.guard.core.flag.module.GFlag;
@@ -17,9 +15,6 @@ public class FlyFlag extends GFlag<RegionEnteredEvent, FlyFlag> {
     public void onTrigger(RegionEnteredEvent event) {
 
         Player player = event.getPlayer();
-        ProtectedRegion region = event.getRegion();
-
-        FlagManager flagManager = new FlagManager();
 
         player.sendMessage("Fly success enabled! Region detected");
 

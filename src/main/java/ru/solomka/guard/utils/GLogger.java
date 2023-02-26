@@ -1,4 +1,4 @@
-package ru.solomka.guard.core.flag.utils;
+package ru.solomka.guard.utils;
 
 import java.util.Arrays;
 

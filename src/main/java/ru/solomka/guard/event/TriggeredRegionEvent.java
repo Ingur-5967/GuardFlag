@@ -12,16 +12,16 @@ import ru.solomka.guard.core.flag.event.RegionMovingEvent;
 
 public class TriggeredRegionEvent implements Listener {
 
+    private final FlagManager flagManager = new FlagManager();
+
     @EventHandler
     public void onMovingRegion(RegionMovingEvent event) {
-        FlagManager flagManager = new FlagManager();
         if(flagManager.getGFlagsOf(ContextFlag.MOVING) == null) return;
         flagManager.getGFlagsOf(ContextFlag.MOVING).forEach(f -> FlagManager.callController(f, event));
     }
 
     @EventHandler
     public void onEnteredRegion(RegionEnteredEvent event) {
-        FlagManager flagManager = new FlagManager();
         if(flagManager.getGFlagsOf(ContextFlag.ENTERED) == null) return;
         flagManager.getGFlagsOf(ContextFlag.ENTERED).forEach(f -> FlagManager.callController(f, event));
     }
@@ -33,9 +33,6 @@ public class TriggeredRegionEvent implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onHarmRegion(RegionHarmEvent event) {
-
-        FlagManager flagManager = new FlagManager();
-
         switch (event.getHarmType()) {
             case BREAK: {
                 if(flagManager.getGFlagsOf(ContextFlag.BREAK) == null) return;

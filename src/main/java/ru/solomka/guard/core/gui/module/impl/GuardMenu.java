@@ -1,6 +1,5 @@
 package ru.solomka.guard.core.gui.module.impl;
 
-import ru.solomka.guard.core.flag.utils.GLogger;
 import ru.solomka.guard.core.gui.module.GMenu;
 import ru.solomka.guard.core.gui.module.entity.GComponentMenu;
 import ru.solomka.guard.core.gui.module.entity.GMenuAdapter;
@@ -19,13 +18,7 @@ public class GuardMenu extends GMenu<GuardMenu> {
         List<GComponentMenu> componentMenuList = new ArrayList<>();
 
         adapter.getComponents().forEach(c -> {
-            c.setTrigger(click -> {
-
-
-                GLogger.info("break");
-
-                click.setCancelled(true);
-            });
+            c.setTrigger(click -> click.setCancelled(true));
             componentMenuList.add(c);
         });
         return componentMenuList;

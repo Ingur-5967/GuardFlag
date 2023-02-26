@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data @AllArgsConstructor
 public class GFlagComponent<T, C> {
-    private final String id;
+    private final String idFlag;
     private final C paramsFlag;
     private final T controller;
 }

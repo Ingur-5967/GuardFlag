@@ -34,9 +34,8 @@ public class RegionFlagCommand extends ECommand<RegionFlagCommand> {
         super(
                 SenderType.PLAYER,
                 "drg",
+                "drg.usage",
                 null,
-                null,
-                false,
                 new Object[]{
                         new TabViewCommand(0, new Object[]{"flag", "info", "regions"}),
                         new TabViewCommand(1, new Object[]{"<inter-region-name>"}),

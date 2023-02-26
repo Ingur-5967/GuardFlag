@@ -1,11 +1,10 @@
-package ru.solomka.guard.core.flag.utils;
+package ru.solomka.guard.utils;
 
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.LinkedList;
 
 public class TPS extends BukkitRunnable {
-
     private transient long last;
     private final LinkedList<Double> history;
 

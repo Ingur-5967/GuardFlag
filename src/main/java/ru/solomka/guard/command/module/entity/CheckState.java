@@ -12,7 +12,6 @@ public class CheckState {
     public enum CallReason {
         INSTANCE_OF,
         PERMISSION,
-        PERMISSION_AND_INSTANCE_OF,
         OTHER
     }
 }

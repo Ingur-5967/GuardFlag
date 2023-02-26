@@ -5,14 +5,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
 import ru.solomka.guard.Main;
-import ru.solomka.guard.core.flag.utils.GLogger;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.bukkit.configuration.file.YamlConfiguration.loadConfiguration;
 
