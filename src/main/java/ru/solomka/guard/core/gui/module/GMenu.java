@@ -87,6 +87,7 @@ public abstract class GMenu<T extends GMenu<?>> {
         InventoryUtils.fillEmptySlots(new ItemStack(Material.STAINED_GLASS_PANE, 1, (byte) 7), inventory);
 
         GMenuAdapter adapter = new GMenuAdapter(inventory, componentMenuList);
+
         adapter.setComponents(initComponents(adapter) == null ? adapter.getComponents() : initComponents(adapter));
 
         return adapter;

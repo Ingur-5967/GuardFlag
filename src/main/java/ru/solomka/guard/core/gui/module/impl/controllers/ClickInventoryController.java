@@ -2,13 +2,13 @@ package ru.solomka.guard.core.gui.module.impl.controllers;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import ru.solomka.guard.core.gui.GUIManager;
-import ru.solomka.guard.core.gui.module.GController;
 import ru.solomka.guard.core.gui.module.entity.GComponentMenu;
 
-public class ClickInventoryController extends GController<ClickInventoryController> {
+public class ClickInventoryController implements Listener {
 
     @EventHandler
     public void onEvent(InventoryClickEvent event) {
@@ -27,10 +27,5 @@ public class ClickInventoryController extends GController<ClickInventoryControll
         if(component == null || component.getTrigger() == null) return;
 
         component.getTrigger().accept(event);
-    }
-
-    @Override
-    public ClickInventoryController getInstance() {
-        return this;
     }
 }
