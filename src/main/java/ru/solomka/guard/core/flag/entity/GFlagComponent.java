@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data @AllArgsConstructor
-public class GFlagComponent<T, C> {
+public class GFlagComponent<C, P> {
     private final String idFlag;
-    private final C paramsFlag;
-    private final T controller;
+    private final P paramsFlag;
+    private final C controller;
 }

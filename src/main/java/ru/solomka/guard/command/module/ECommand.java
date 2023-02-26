@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 import ru.solomka.guard.command.module.enums.SenderType;
 
 import java.io.IOException;
@@ -13,7 +14,7 @@ import java.util.function.Predicate;
 
 @Data
 @AllArgsConstructor
-public abstract class ECommand<T extends ECommand<?>> implements ECommandHelper {
+public abstract class ECommand implements ECommandHelper {
 
     private final SenderType senderType;
     private final String syntax;
@@ -22,8 +23,6 @@ public abstract class ECommand<T extends ECommand<?>> implements ECommandHelper 
     private final Object[] toViewElementsWrapper;
 
     public abstract boolean execute(CommandSender sender, String[] args) throws InstantiationException, IllegalAccessException, IOException;
-
-    public abstract T getInstance();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -60,7 +59,7 @@ public abstract class ECommand<T extends ECommand<?>> implements ECommandHelper 
         return getTabsOfArgumentIndex(getToViewElementsWrapper(), args.length - 1);
     }
 
-    public boolean validExecutor(CommandSender sender, Predicate<CommandSender> predicate) {
+    public boolean validExecutor(CommandSender sender, @NotNull Predicate<CommandSender> predicate) {
         return predicate.test(sender);
     }
 }

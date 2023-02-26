@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class RegionFlagCommand extends ECommand<RegionFlagCommand> {
+public class RegionFlagCommand extends ECommand {
 
     public RegionFlagCommand() {
         super(
@@ -46,7 +46,7 @@ public class RegionFlagCommand extends ECommand<RegionFlagCommand> {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String[] args) throws IOException {
+    public boolean execute(CommandSender sender, String[] args) {
         Player player = (Player) sender;
 
         if (args.length == 0) {
@@ -189,11 +189,6 @@ public class RegionFlagCommand extends ECommand<RegionFlagCommand> {
             }
         }
         return true;
-    }
-
-    @Override
-    public RegionFlagCommand getInstance() {
-        return this;
     }
 
     @Override
