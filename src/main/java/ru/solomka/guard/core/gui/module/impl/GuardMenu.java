@@ -7,7 +7,7 @@ import ru.solomka.guard.core.gui.module.entity.GMenuAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuardMenu extends GMenu<GuardMenu> {
+public class GuardMenu extends GMenu {
 
     public GuardMenu() {
         super("info_menu", "Информация о регионе", 36, null);
@@ -22,10 +22,5 @@ public class GuardMenu extends GMenu<GuardMenu> {
             componentMenuList.add(c);
         });
         return componentMenuList;
-    }
-
-    @Override
-    public GuardMenu getInstance() {
-        return this;
     }
 }

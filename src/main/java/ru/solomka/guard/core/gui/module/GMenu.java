@@ -25,13 +25,13 @@ import java.util.List;
 import static org.bukkit.ChatColor.*;
 
 @Data
-public abstract class GMenu<T extends GMenu<?>> {
+public abstract class GMenu {
 
     private final String title, fileControllerName;
     private final int slots;
-    private final GMenu<?>[] preAndNextPages;
+    private final GMenu[] preAndNextPages;
 
-    public GMenu(String fileControllerName, String title, int slots, GMenu<?>[] preAndNextPages) {
+    public GMenu(String fileControllerName, String title, int slots, GMenu[] preAndNextPages) {
         this.fileControllerName = fileControllerName;
         this.title = title;
         this.slots = slots;
@@ -95,5 +95,4 @@ public abstract class GMenu<T extends GMenu<?>> {
 
     public abstract List<GComponentMenu> initComponents(GMenuAdapter adapter);
 
-    public abstract T getInstance();
 }

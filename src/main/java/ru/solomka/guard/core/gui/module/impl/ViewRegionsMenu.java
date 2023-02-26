@@ -7,7 +7,7 @@ import ru.solomka.guard.core.gui.module.entity.GMenuAdapter;
 
 import java.util.List;
 
-public class ViewRegionsMenu extends GMenu<ViewRegionsMenu> {
+public class ViewRegionsMenu extends GMenu {
 
     public ViewRegionsMenu() {
         super("view_regions", "Активные регионы", 36, null);
@@ -25,10 +25,5 @@ public class ViewRegionsMenu extends GMenu<ViewRegionsMenu> {
         });
 
         return null;
-    }
-
-    @Override
-    public ViewRegionsMenu getInstance() {
-        return this;
     }
 }
