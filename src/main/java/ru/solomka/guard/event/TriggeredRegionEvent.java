@@ -28,7 +28,8 @@ public class TriggeredRegionEvent implements Listener {
 
     @EventHandler
     public void onExitedRegion(RegionLeftEvent event) {
-        //todo
+        if(flagManager.getGFlagsOf(ContextFlag.MOVING) == null) return;
+        flagManager.getGFlagsOf(ContextFlag.MOVING).forEach(f -> FlagManager.callController(f, event));
     }
 
     @EventHandler(priority = EventPriority.LOWEST)

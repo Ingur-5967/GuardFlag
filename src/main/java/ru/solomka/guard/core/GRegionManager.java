@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class GRegionManager {
 
-    public void createRegionFile(String idRegion) throws IOException {
+    public void createRegionFile(String idRegion) {
         if (getFileRegion(idRegion) == null) {
             Yaml data = FileUtils.getDirectoryFile(DirectorySource.DATA.getType(), "region_" + idRegion);
             data.set("flags", "[]");
