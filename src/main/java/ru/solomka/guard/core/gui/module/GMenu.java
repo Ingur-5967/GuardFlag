@@ -62,7 +62,6 @@ public abstract class GMenu<T extends GMenu<?>> {
 
             meta = item.getItemMeta();
 
-
             if(meta != null) {
                 meta.setDisplayName(translateAlternateColorCodes('&', file.getString("items." + id + ".name")));
 

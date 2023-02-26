@@ -18,22 +18,22 @@ import java.util.stream.Collectors;
 
 public class FlagManager {
 
-    private static final List<GFlag<?, ?>> FLAG_CONTAINER = new ArrayList<>();
+    private static final List<GFlag<?>> FLAG_CONTAINER = new ArrayList<>();
 
     @SuppressWarnings("unchecked")
-    public static <T extends Event> void callController(GFlag<?, ?> flag, T eventArgument) {
-        ((GFlag<T, ?>) flag).onTrigger(eventArgument);
+    public static <T extends Event> void callController(GFlag<?> flag, T eventArgument) {
+        ((GFlag<T>) flag).onTrigger(eventArgument);
     }
 
     public static void callEvent(Event event) {
         Bukkit.getPluginManager().callEvent(event);
     }
 
-    public static void initCustomFlags(GFlag<?, ?> ...flags) {
+    public static void initCustomFlags(GFlag<?> ...flags) {
         FLAG_CONTAINER.addAll(Arrays.stream(flags).collect(Collectors.toList()));
     }
 
-    public List<GFlag<?, ?>> getGFlagsOf(ContextFlag contextFlag) {
+    public List<GFlag<?>> getGFlagsOf(ContextFlag contextFlag) {
 
         List<Flag> flags = Arrays.stream(Flag.values())
                 .filter(f -> Arrays.asList(f.getTriggered()).contains(contextFlag))
@@ -46,7 +46,7 @@ public class FlagManager {
                 .collect(Collectors.toList());
     }
 
-    public static GFlag<?, ?> getControllerOfId(String idFlag) {
+    public static GFlag<?> getControllerOfId(String idFlag) {
         return FLAG_CONTAINER.stream()
                 .filter(f -> f.getIdFlag().equals(idFlag))
                 .findAny().orElse(null);

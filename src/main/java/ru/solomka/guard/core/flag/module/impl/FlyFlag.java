@@ -5,7 +5,7 @@ import ru.solomka.guard.core.flag.enums.Flag;
 import ru.solomka.guard.core.flag.event.RegionEnteredEvent;
 import ru.solomka.guard.core.flag.module.GFlag;
 
-public class FlyFlag extends GFlag<RegionEnteredEvent, FlyFlag> {
+public class FlyFlag extends GFlag<RegionEnteredEvent> {
 
     public FlyFlag() {
         super(Flag.FLY_ENABLE.getIdFlag(), Flag.FLY_ENABLE.getArgumentsToCommand());
@@ -20,11 +20,6 @@ public class FlyFlag extends GFlag<RegionEnteredEvent, FlyFlag> {
 
         player.setAllowFlight(true);
         player.setFlying(true);
-    }
-
-    @Override
-    public FlyFlag getInstance() {
-        return this;
     }
 
     @Override

@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 import static org.bukkit.ChatColor.*;
 
-public class BuildBlockFlag extends GFlag<RegionHarmEvent, BuildBlockFlag> {
+public class BuildBlockFlag extends GFlag<RegionHarmEvent> {
 
     public BuildBlockFlag() {
         super(Flag.BLOCK_BUILD.getIdFlag(), Flag.BLOCK_BUILD.getArgumentsToCommand());
@@ -68,11 +68,6 @@ public class BuildBlockFlag extends GFlag<RegionHarmEvent, BuildBlockFlag> {
             player.sendMessage(getFailedMessage());
             event.setCancelled(true);
         }
-    }
-
-    @Override
-    public BuildBlockFlag getInstance() {
-        return this;
     }
 
     @Override

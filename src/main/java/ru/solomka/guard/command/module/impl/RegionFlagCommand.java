@@ -118,7 +118,7 @@ public class RegionFlagCommand extends ECommand<RegionFlagCommand> {
 
             Yaml file = gRegionManager.getFileRegion(region.getId());
 
-            GFlag<?, ?> controller = FlagManager.getControllerOfId(args[2]);
+            GFlag<?> controller = FlagManager.getControllerOfId(args[2]);
 
             if (controller == null)
                 throw new NullPointerException("Controller cannot be null!");
