@@ -9,7 +9,6 @@ import ru.solomka.guard.core.flag.event.RegionEnteredEvent;
 import ru.solomka.guard.core.flag.event.RegionHarmEvent;
 import ru.solomka.guard.core.flag.event.RegionLeftEvent;
 import ru.solomka.guard.core.flag.event.RegionMovingEvent;
-import ru.solomka.guard.core.flag.utils.GLogger;
 
 public class TriggeredRegionEvent implements Listener {
 

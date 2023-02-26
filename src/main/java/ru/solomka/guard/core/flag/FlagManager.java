@@ -1,7 +1,9 @@
 package ru.solomka.guard.core.flag;
 
+import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
+import ru.solomka.guard.Main;
 import ru.solomka.guard.config.RegistrationService;
 import ru.solomka.guard.config.Yaml;
 import ru.solomka.guard.core.GRegionManager;
@@ -24,6 +26,10 @@ public class FlagManager {
     @SuppressWarnings("unchecked")
     public static <T extends Event> void callController(GFlag<?, ?> flag, T eventArgument) {
         ((GFlag<T, ?>) flag).onTrigger(eventArgument);
+    }
+
+    public static void callEvent(Event event) {
+        Bukkit.getPluginManager().callEvent(event);
     }
 
     public static void initCustomFlags(GFlag<?, ?> ...flags) {

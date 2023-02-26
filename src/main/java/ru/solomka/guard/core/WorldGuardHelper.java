@@ -30,10 +30,9 @@ public class WorldGuardHelper {
 
     public static ProtectedRegion getRegionOfContainsBlock(Block block) {
         if (block == null) return null;
-        for (Map.Entry<String, ProtectedRegion> aMap : getRegionManager(block.getWorld()).getRegions().entrySet()) {
-            if (isContainsInRegion(aMap.getValue(), block.getLocation())) return aMap.getValue();
-        }
-        return null;
+
+        return getRegionManager(block.getWorld()).getApplicableRegions(block.getLocation()).getRegions()
+                .stream().filter(r -> r.contains(block.getX(), block.getY(), block.getZ())).findAny().orElse(null);
     }
 
     public static Location getCenterRegionLocation(ProtectedRegion region) {
