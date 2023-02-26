@@ -12,7 +12,13 @@ import ru.solomka.guard.core.flag.event.RegionInteractItemsEvent;
 public class GuardEntryInteract implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onInteract(PlayerInteractEvent event) {
+    public void onInteractBypass(PlayerInteractEvent event) {
+        if (WorldGuardHelper.getRegionOfContainsBlock(event.getClickedBlock()) != null)
+            event.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onInteractHandler(PlayerInteractEvent event) {
         Block block = event.getClickedBlock();
 
         if (WorldGuardHelper.getRegionOfContainsBlock(block) == null) return;

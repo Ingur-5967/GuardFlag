@@ -55,7 +55,7 @@ public class RegionFlagCommand extends ECommand<RegionFlagCommand> {
             return true;
         }
 
-        RegionManager regionManager = WGBukkit.getRegionManager(player.getWorld());
+        RegionManager regionManager = WorldGuardHelper.getRegionManager(player.getWorld());
 
         if (regionManager == null) return true;
 
@@ -177,7 +177,7 @@ public class RegionFlagCommand extends ECommand<RegionFlagCommand> {
         } else if (args[0].equalsIgnoreCase("regions")) {
 
 
-            File dir = new File(Main.getInstance().getDataFolder() + File.separator + DirectorySource.DATA);
+            File dir = new File(Main.getInstance().getDataFolder() + File.separator + DirectorySource.DATA.getType());
 
             if (dir.isDirectory()) {
                 if (dir.listFiles() == null) return true;
