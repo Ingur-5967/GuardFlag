@@ -2,6 +2,7 @@ package ru.solomka.guard.command.module;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Setter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +19,7 @@ public abstract class ECommand implements ECommandHelper {
 
     private final SenderType senderType;
     private final String syntax;
-    private final String permission;
+    @Setter private String permission;
     private final String[] aliases;
     private final Object[] toViewElementsWrapper;
 
