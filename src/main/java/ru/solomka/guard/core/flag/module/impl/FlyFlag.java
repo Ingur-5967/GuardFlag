@@ -21,9 +21,4 @@ public class FlyFlag extends GFlag<RegionEnteredEvent> {
         player.setAllowFlight(true);
         player.setFlying(true);
     }
-
-    @Override
-    public String getFailedMessage() {
-        return "";
-    }
 }

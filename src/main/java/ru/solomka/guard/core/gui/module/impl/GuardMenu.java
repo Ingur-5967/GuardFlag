@@ -16,7 +16,6 @@ public class GuardMenu extends GMenu {
     @Override
     public List<GComponentMenu> initComponents(GMenuAdapter adapter) {
         List<GComponentMenu> componentMenuList = new ArrayList<>();
-
         adapter.getComponents().forEach(c -> {
             c.setTrigger(click -> click.setCancelled(true));
             componentMenuList.add(c);

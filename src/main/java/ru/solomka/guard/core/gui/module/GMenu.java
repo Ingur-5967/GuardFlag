@@ -67,7 +67,7 @@ public abstract class GMenu {
 
                 PlaceholderManager placeholderManager = new PlaceholderManager(
                         new String[]{"{current_elements}", "{valid_members}", "{last_edit_flags}"},
-                        new String[]{"123", "213", "321"}
+                        new String[]{"current_elements", "valid_members", "last_edit_flags"}
                 );
 
                 meta.setLore(ReplaceUtils.getColoredList(placeholderManager.getReplacedElement(file.getStringList("items." + id + ".lore"))));

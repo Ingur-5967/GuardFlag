@@ -16,7 +16,7 @@ public abstract class GFlag<E extends Event> {
 
     public void onTrigger(E event) {}
 
-    public abstract String getFailedMessage();
+    public String getFailedMessage() { return ""; }
 
     public <P> boolean checkArgument(P value, Predicate<P> predicate) {
         return predicate.test(value);
