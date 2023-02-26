@@ -11,18 +11,18 @@ import java.util.Collections;
 
 public class CommandBuilder {
 
-    @Getter private final ECommand<?> command;
+    @Getter private final ECommand command;
 
     private final PluginCommand minecraftCommand;
 
-    public CommandBuilder(ECommand<?> command) {
+    public CommandBuilder(ECommand command) {
         this.command = command;
         minecraftCommand = Bukkit.getPluginCommand(command.getSyntax());
     }
 
-    public CommandBuilder initСontrols() {
-        minecraftCommand.setExecutor(command.getInstance());
-        minecraftCommand.setTabCompleter(command.getInstance());
+    public CommandBuilder initСontrols() throws InstantiationException, IllegalAccessException {
+        minecraftCommand.setExecutor(command.getClass().newInstance());
+        minecraftCommand.setTabCompleter(command.getClass().newInstance());
         return this;
     }
 
