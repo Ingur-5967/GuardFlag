@@ -48,9 +48,4 @@ public class GUIManager {
     public GMenu<?> getGUIOfTitle(String title) {
         return MENUS_CONTAINER.stream().filter(m -> m.getTitle().equals(title)).findAny().orElse(null);
     }
-
-    public static class GUIPageManager {
-        //TODO
-    }
-
 }
