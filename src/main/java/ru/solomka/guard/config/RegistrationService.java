@@ -4,6 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import ru.solomka.guard.Main;
 import ru.solomka.guard.config.enums.DirectorySource;
 import ru.solomka.guard.config.utils.ServiceRegistrationBuilder;
