@@ -49,6 +49,12 @@ public class BuildBlockFlag extends GFlag<RegionHarmEvent> {
             return;
         }
 
+        if(file.getString("flags." + getIdFlag() + ".params." + block.getType().name()) == null) {
+            player.sendMessage(getFailedMessage());
+            event.setCancelled(true);
+            return;
+        }
+
         Map<Material, String> states = new HashMap<>();
 
         for(String paramHeader : params) {
@@ -64,10 +70,6 @@ public class BuildBlockFlag extends GFlag<RegionHarmEvent> {
             if (InventoryUtils.compareMaterials(aMap.getKey(), block.getType()))
                 event.setCancelled(!aMap.getValue().equals("allow"));
 
-        if(file.getString("flags." + getIdFlag() + ".params." + block.getType().name()) == null) {
-            player.sendMessage(getFailedMessage());
-            event.setCancelled(true);
-        }
     }
 
     @Override
