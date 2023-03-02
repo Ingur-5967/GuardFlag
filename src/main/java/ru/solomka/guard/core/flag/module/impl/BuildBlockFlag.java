@@ -14,6 +14,7 @@ import ru.solomka.guard.core.flag.utils.FlagRoute;
 import ru.solomka.guard.core.gui.tools.InventoryUtils;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -60,11 +61,12 @@ public class BuildBlockFlag extends GFlag<RegionHarmEvent> {
             states.put(Material.getMaterial(paramHeader), file.getString("flags." + getIdFlag() + ".params." + paramHeader));
         }
 
-        for(Map.Entry<Material, String> aMap : states.entrySet())
-            if (InventoryUtils.compareMaterials(aMap.getKey(), block.getType()))
-                event.setCancelled(!aMap.getValue().equals("allow"));
-
-        if(file.getString("flags." + getIdFlag() + ".params." + block.getType().name()) == null) {
+        if(states.containsKey(block.getType())) {
+            for (Map.Entry<Material, String> aMap : states.entrySet())
+                if (InventoryUtils.compareMaterials(aMap.getKey(), block.getType()))
+                    event.setCancelled(!aMap.getValue().equals("allow"));
+        }
+        else {
             player.sendMessage(getFailedMessage());
             event.setCancelled(true);
         }

@@ -1,5 +1,6 @@
 package ru.solomka.guard.config;
 
+import lombok.Getter;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -14,7 +15,7 @@ import static org.bukkit.configuration.file.YamlConfiguration.loadConfiguration;
 
 public class Yaml {
 
-    private YamlConfiguration yaml = new YamlConfiguration();
+    @Getter private YamlConfiguration yaml = new YamlConfiguration();
     private File file;
 
     public Yaml(@NotNull File file) {
@@ -48,10 +49,6 @@ public class Yaml {
         }
     }
 
-    public FileConfiguration getFileConfiguration() {
-        return yaml;
-    }
-
     public void load() throws IOException, InvalidConfigurationException {
         yaml.load(file);
     }
@@ -73,7 +70,6 @@ public class Yaml {
         yaml.set(path, String.valueOf(value));
         reload();
     }
-
 
     public int getInt(String path) {
         long request = this.getLong(path);
