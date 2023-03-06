@@ -16,6 +16,9 @@ public class ViewRegionsMenu extends GMenu {
     @Override
     public List<GComponentMenu> initComponents(GMenuAdapter adapter) {
         adapter.getComponents().forEach(c -> {
+
+
+
             c.setTrigger(t -> {
                 Player player = (Player) t.getWhoClicked();
                 player.sendMessage("TODO: full region information");

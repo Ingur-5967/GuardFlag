@@ -7,5 +7,6 @@ public enum ContextFlag {
     PLACE,
     MOVING,
     DEAD,
-    ENTERED
+    LEFT_REGION,
+    ENTERED_REGION
 }

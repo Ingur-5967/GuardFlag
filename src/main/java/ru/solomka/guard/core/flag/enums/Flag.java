@@ -13,7 +13,7 @@ public enum Flag {
     BLOCK_BUILD("block-build", new Object[]{":"}, Arrays.stream(Material.values()).map(String::valueOf).collect(Collectors.toList()), ContextFlag.BREAK, ContextFlag.PLACE),
     SAVE_ITEMS("save-items", new Object[]{"true", "false"}, null, ContextFlag.DEAD),
     REDSTONE_DISABLE("redstone-disable", new Object[]{"true", "false"}, null, ContextFlag.INTERACT),
-    FLY_ENABLE("fly-enable", new Object[]{"true", "false"}, null, ContextFlag.ENTERED);
+    FLY_ENABLE("fly-enable", new Object[]{"true", "false"}, null, ContextFlag.ENTERED_REGION, ContextFlag.LEFT_REGION);
 
     @Getter private final String idFlag;
     @Getter private final Object[] argumentsToCommand;

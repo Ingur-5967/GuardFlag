@@ -4,6 +4,7 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import ru.solomka.guard.config.Yaml;
 import ru.solomka.guard.core.GRegionManager;
 import ru.solomka.guard.core.WorldGuardHelper;
@@ -14,12 +15,11 @@ import ru.solomka.guard.core.flag.utils.FlagRoute;
 import ru.solomka.guard.core.gui.tools.InventoryUtils;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static org.bukkit.ChatColor.*;
+import static org.bukkit.ChatColor.translateAlternateColorCodes;
 
 public class BuildBlockFlag extends GFlag<RegionHarmEvent> {
 
@@ -28,7 +28,7 @@ public class BuildBlockFlag extends GFlag<RegionHarmEvent> {
     }
 
     @Override
-    public void onTrigger(RegionHarmEvent event) {
+    public void onEnable(RegionHarmEvent event) {
 
         Block block = event.getEvent().getBlock();
         Player player = event.getPlayer();
@@ -36,15 +36,8 @@ public class BuildBlockFlag extends GFlag<RegionHarmEvent> {
 
         Yaml file = new GRegionManager().getFileRegion(region.getId());
 
-        if(!FlagRoute.isExistsFlag(region.getId(), Flag.BLOCK_BUILD.getIdFlag())) {
-            player.sendMessage(getFailedMessage());
-            event.setCancelled(true);
-            return;
-        }
 
-        List<String> params = FlagRoute.getParamsFlag(region.getId(), Flag.BLOCK_BUILD.getIdFlag());
-
-        if(params == null) {
+        if(!containsFlag(region.getId())) {
             player.sendMessage(getFailedMessage());
             event.setCancelled(true);
             return;
@@ -52,6 +45,9 @@ public class BuildBlockFlag extends GFlag<RegionHarmEvent> {
 
         Map<Material, String> states = new HashMap<>();
 
+        List<String> params = FlagRoute.getParamsFlag(region.getId(), Flag.BLOCK_BUILD.getIdFlag());
+
+        assert params != null;
         for(String paramHeader : params) {
 
             if(!checkArgument(paramHeader, hMaterial -> Flag.BLOCK_BUILD.getValidArguments().stream()
@@ -71,6 +67,9 @@ public class BuildBlockFlag extends GFlag<RegionHarmEvent> {
             event.setCancelled(true);
         }
     }
+
+    @Override
+    public <Q extends Event> void onDisable(Q event) {}
 
     @Override
     public String getFailedMessage() {

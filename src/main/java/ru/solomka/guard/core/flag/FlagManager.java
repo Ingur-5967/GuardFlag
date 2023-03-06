@@ -11,6 +11,7 @@ import ru.solomka.guard.core.flag.enums.Flag;
 import ru.solomka.guard.core.flag.module.GFlag;
 import ru.solomka.guard.core.flag.utils.FlagRoute;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,9 +21,12 @@ public class FlagManager {
 
     private static final List<GFlag<?>> FLAG_CONTAINER = new ArrayList<>();
 
-    @SuppressWarnings("unchecked")
-    public static <T extends Event> void callController(GFlag<?> flag, T eventArgument) {
-        ((GFlag<T>) flag).onTrigger(eventArgument);
+    // FIXME: 06.03.2023 
+    public static <T extends Event> void callController(GFlag<?> flag, T eventArgument, String action) throws InstantiationException, IllegalAccessException,
+            NoSuchMethodException, InvocationTargetException {
+        flag.getClass()
+                .getMethod(action, Event.class)
+                .invoke(flag.getClass().newInstance(), eventArgument);
     }
 
     public static void callEvent(Event event) {

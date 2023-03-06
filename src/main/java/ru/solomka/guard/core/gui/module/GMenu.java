@@ -76,6 +76,7 @@ public abstract class GMenu {
             }
 
             componentMenuList.add(new GComponentMenu(
+                    file.getString("items." + id + "id"),
                     new GComponentOptional(
                             file.getString("items." + id + ".id"),
                             item, file.getInt("items." + id + ".slot"), meta

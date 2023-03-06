@@ -12,6 +12,7 @@ import java.util.function.Consumer;
 
 @Data @AllArgsConstructor
 public class GComponentMenu {
+    private final String id;
     private final GComponentOptional optional;
     private final Inventory parent;
     @Setter private Consumer<InventoryClickEvent> trigger;

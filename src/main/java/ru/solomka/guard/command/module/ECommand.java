@@ -2,6 +2,7 @@ package ru.solomka.guard.command.module;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -13,15 +14,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
-@Data
 @AllArgsConstructor
 public abstract class ECommand implements ECommandHelper {
 
-    private final SenderType senderType;
-    private final String syntax;
-    @Setter private String permission;
-    private final String[] aliases;
-    private final Object[] toViewElementsWrapper;
+    @Getter private final SenderType senderType;
+    @Getter private final String syntax;
+    @Getter @Setter private String permission;
+    @Getter private final String[] aliases;
+    @Getter private final Object[] toViewElementsWrapper;
 
     public abstract boolean execute(CommandSender sender, String[] args) throws InstantiationException, IllegalAccessException, IOException;
 

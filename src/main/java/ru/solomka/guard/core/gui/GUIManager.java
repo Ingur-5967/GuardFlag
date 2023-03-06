@@ -1,5 +1,6 @@
 package ru.solomka.guard.core.gui;
 
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import ru.solomka.guard.config.Yaml;
@@ -11,6 +12,7 @@ import ru.solomka.guard.core.gui.module.entity.GComponentMenu;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,4 +50,39 @@ public class GUIManager {
     public GMenu getGUIOfTitle(String title) {
         return MENUS_CONTAINER.stream().filter(m -> m.getTitle().equals(title)).findAny().orElse(null);
     }
+
+    public static class GUIAction {
+
+        @Getter private final String idItem;
+        @Getter private final GMenu menu;
+
+        private Yaml file;
+
+        private static final List<String> SUPPORTED_ACTIONS = Arrays.asList(
+            "open", "close", ""
+        );
+
+        public GUIAction(GMenu menu, String idItem) {
+            this.menu = menu;
+            this.idItem = idItem;
+
+            file = FileUtils.getDirectoryFile(DirectorySource.MENU.getType(), menu.getFileControllerName());
+        }
+
+        public boolean validParams() {
+            if(getActionParams().isEmpty())
+                return true;
+            return false;
+
+        }
+
+        private List<String> getActionParams() {
+            if(file.getString("items." + idItem + ".action") == null || file.getString("items." + idItem + ".action").equals("[]"))
+                return Collections.emptyList();
+
+            return file.getStringList("items." + idItem + ".action");
+        }
+
+    }
+
 }

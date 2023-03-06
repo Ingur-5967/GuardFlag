@@ -12,8 +12,7 @@ import java.util.Collections;
 public class CommandBuilder {
 
     @Getter private final ECommand command;
-
-    private final PluginCommand minecraftCommand;
+    @Getter private final PluginCommand minecraftCommand;
 
     public CommandBuilder(ECommand command) {
         this.command = command;
