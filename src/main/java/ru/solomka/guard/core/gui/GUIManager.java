@@ -58,7 +58,7 @@ public class GUIManager {
         @Getter private final String idItem;
         @Getter private final GMenu menu;
 
-        private Yaml file;
+        private final Yaml file;
 
         private static final List<String> SUPPORTED_ACTIONS = Arrays.asList(
             "open", "close", ""
