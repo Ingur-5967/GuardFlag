@@ -2,14 +2,8 @@ package ru.solomka.guard.core.flag;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
-import ru.solomka.guard.config.RegistrationService;
-import ru.solomka.guard.config.Yaml;
-import ru.solomka.guard.core.GRegionManager;
-import ru.solomka.guard.core.flag.entity.GFlagComponent;
-import ru.solomka.guard.core.flag.enums.ContextFlag;
 import ru.solomka.guard.core.flag.enums.Flag;
 import ru.solomka.guard.core.flag.module.GFlag;
-import ru.solomka.guard.core.flag.utils.FlagRoute;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -37,7 +31,7 @@ public class FlagManager {
         FLAG_CONTAINER.addAll(Arrays.stream(flags).collect(Collectors.toList()));
     }
 
-    public List<GFlag<?>> getGFlagsOf(ContextFlag contextFlag) {
+    public List<GFlag<?>> getGFlagsOf(Flag.ContextFlag contextFlag) {
 
         List<Flag> flags = Arrays.stream(Flag.values())
                 .filter(f -> Arrays.asList(f.getTriggered()).contains(contextFlag))

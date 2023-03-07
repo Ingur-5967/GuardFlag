@@ -9,11 +9,11 @@ import java.util.stream.Collectors;
 
 public enum Flag {
 
-    TNT_EXPLOSION("tnt-explosion", new Object[]{"allow", "deny"}, null, ContextFlag.EXPLOSION),
+    TNT_EXPLOSION("tnt-explosion", new Object[]{"true", "false"}, Arrays.asList("true", "false"), ContextFlag.EXPLOSION),
     BLOCK_BUILD("block-build", new Object[]{":"}, Arrays.stream(Material.values()).map(String::valueOf).collect(Collectors.toList()), ContextFlag.BREAK, ContextFlag.PLACE),
-    SAVE_ITEMS("save-items", new Object[]{"true", "false"}, null, ContextFlag.DEAD),
-    REDSTONE_DISABLE("redstone-disable", new Object[]{"true", "false"}, null, ContextFlag.INTERACT),
-    FLY_ENABLE("fly-enable", new Object[]{"true", "false"}, null, ContextFlag.ENTERED_REGION, ContextFlag.LEFT_REGION);
+    SAVE_ITEMS("save-items", new Object[]{"true", "false"}, Arrays.asList("true", "false"), ContextFlag.DEAD),
+    REDSTONE_CONTROLLER("redstone", new Object[]{"true", "false"}, Arrays.asList("true", "false"), ContextFlag.INTERACT),
+    FLY_ENABLE("fly-enable", new Object[]{"true", "false"}, Arrays.asList("true", "false"), ContextFlag.ENTERED_REGION, ContextFlag.LEFT_REGION);
 
     @Getter private final String idFlag;
     @Getter private final Object[] argumentsToCommand;
@@ -25,5 +25,16 @@ public enum Flag {
         this.argumentsToCommand = argumentsToCommand;
         this.validArguments = validArguments;
         this.triggered = triggered;
+    }
+
+    public enum ContextFlag {
+        BREAK,
+        INTERACT,
+        EXPLOSION,
+        PLACE,
+        MOVING,
+        DEAD,
+        LEFT_REGION,
+        ENTERED_REGION
     }
 }

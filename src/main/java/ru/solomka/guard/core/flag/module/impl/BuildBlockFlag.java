@@ -69,9 +69,6 @@ public class BuildBlockFlag extends GFlag<RegionHarmEvent> {
     }
 
     @Override
-    public <Q extends Event> void onDisable(Q event) {}
-
-    @Override
     public String getFailedMessage() {
         return translateAlternateColorCodes('&', "&7Вы не можете &c&lсовершить&7 данное действие в чужом регионе");
     }
