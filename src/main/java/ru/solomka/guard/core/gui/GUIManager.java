@@ -51,6 +51,8 @@ public class GUIManager {
         return MENUS_CONTAINER.stream().filter(m -> m.getTitle().equals(title)).findAny().orElse(null);
     }
 
+    //TODO
+    // FIXME: 07.03.2023
     public static class GUIAction {
 
         @Getter private final String idItem;
