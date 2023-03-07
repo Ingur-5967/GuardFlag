@@ -9,7 +9,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import ru.solomka.guard.core.WorldGuardHelper;
 import ru.solomka.guard.core.flag.FlagManager;
-import ru.solomka.guard.core.flag.enums.world.HarmType;
+import ru.solomka.guard.core.flag.enums.Harm;
 import ru.solomka.guard.core.flag.event.RegionHarmEvent;
 
 public class GuardEntryHarm implements Listener {
@@ -23,7 +23,7 @@ public class GuardEntryHarm implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBreakHandler(BlockBreakEvent event) {
         Block block = event.getBlock();
-        RegionHarmEvent regionHarmEvent = new RegionHarmEvent(event.getPlayer(), HarmType.BREAK, event);
+        RegionHarmEvent regionHarmEvent = new RegionHarmEvent(event.getPlayer(), Harm.BREAK, event);
         if (WorldGuardHelper.getRegionOfContainsBlock(block) != null) {
             FlagManager.callEvent(regionHarmEvent);
             event.setCancelled(regionHarmEvent.isCancelled());
@@ -38,7 +38,7 @@ public class GuardEntryHarm implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlaceHandler(BlockPlaceEvent e) {
-        RegionHarmEvent regionHarmEvent = new RegionHarmEvent(e.getPlayer(), HarmType.PLACE, e);
+        RegionHarmEvent regionHarmEvent = new RegionHarmEvent(e.getPlayer(), Harm.PLACE, e);
         if (WorldGuardHelper.getRegionOfContainsBlock(e.getBlockPlaced()) != null) {
             FlagManager.callEvent(regionHarmEvent);
             e.setCancelled(regionHarmEvent.isCancelled());
