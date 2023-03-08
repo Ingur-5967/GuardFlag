@@ -42,19 +42,6 @@ public class TriggeredRegionEvent implements Listener {
         });
     }
 
-    @EventHandler
-    public void onExitedRegion(RegionLeftEvent event) {
-        if(flagManager.getGFlagsOf(Flag.ContextFlag.LEFT_REGION) == null) return;
-        flagManager.getGFlagsOf(Flag.ContextFlag.LEFT_REGION).forEach(f -> {
-            try {
-                FlagManager.callController(f, event, "onDisable");
-            } catch (InstantiationException | IllegalAccessException | NoSuchMethodException |
-                     InvocationTargetException e) {
-                throw new RuntimeException(e);
-            }
-        });
-    }
-
     @EventHandler(priority = EventPriority.LOWEST)
     public void onHarmRegion(RegionHarmEvent event) {
         switch (event.getHarmType()) {
