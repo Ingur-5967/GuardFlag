@@ -26,9 +26,9 @@ public class RedstoneFlag extends GFlag<RegionRedstoneEvent> {
 
         GRedstonePointer redstonePointer = new GRedstonePointer(block.getLocation());
 
-        if(redstonePointer.isRedstone()) {
-            GLogger.info("test");
-        }
+        if(redstonePointer.isRedstone())
+            GLogger.debug("<r>test</r>");
+
 
     }
 }

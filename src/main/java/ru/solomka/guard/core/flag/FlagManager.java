@@ -2,6 +2,7 @@ package ru.solomka.guard.core.flag;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
+import org.jetbrains.annotations.NotNull;
 import ru.solomka.guard.core.flag.enums.Flag;
 import ru.solomka.guard.core.flag.module.GFlag;
 
@@ -16,7 +17,7 @@ public class FlagManager {
     private static final List<GFlag<?>> FLAG_CONTAINER = new ArrayList<>();
 
     // FIXME: 06.03.2023 
-    public static <T extends Event> void callController(GFlag<?> flag, T eventArgument, String action) throws InstantiationException, IllegalAccessException,
+    public static <T extends Event> void callController(@NotNull GFlag<?> flag, T eventArgument, String action) throws InstantiationException, IllegalAccessException,
             NoSuchMethodException, InvocationTargetException {
         flag.getClass()
                 .getMethod(action, Event.class)

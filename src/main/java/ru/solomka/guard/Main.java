@@ -19,6 +19,7 @@ import ru.solomka.guard.core.gui.module.impl.GuardMenu;
 import ru.solomka.guard.core.gui.module.impl.ViewRegionsMenu;
 import ru.solomka.guard.core.gui.module.impl.controllers.ClickInventoryController;
 import ru.solomka.guard.event.TriggeredRegionEvent;
+import ru.solomka.guard.utils.GLogger;
 
 public class Main extends JavaPlugin {
 
@@ -41,6 +42,8 @@ public class Main extends JavaPlugin {
         GUIManager.initMenus(new GuardMenu(), new ViewRegionsMenu());
 
         CommandManager.init(new RegionFlagCommand());
+
+        //GLogger.info("123", "231", "321");
 
         WorldGuardHelper.checkAllRegions();
     }

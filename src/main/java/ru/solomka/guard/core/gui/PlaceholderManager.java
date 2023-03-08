@@ -2,20 +2,21 @@ package ru.solomka.guard.core.gui;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import ru.solomka.guard.utils.GLogger;
 
 import java.util.List;
 
-@Data @AllArgsConstructor
+@AllArgsConstructor
 public class PlaceholderManager {
 
-    private final String[] placeholders, replacement;
+   @Getter private final String[] placeholders, replacement;
 
     @SuppressWarnings("unchecked")
     public <T> T getReplacedElement(T target) {
 
         if(placeholders.length != replacement.length) {
-            GLogger.info("Invalid length placeholders");
+            GLogger.error(GLogger.EColor.RED,"Invalid length placeholders");
             return target;
         }
 

@@ -31,6 +31,6 @@ public class CommandBuilder {
     }
 
     public void build() {
-        GLogger.info("Command '/" + command.getSyntax() + "' success registration");
+        GLogger.info("Command <y>'/" + command.getSyntax() + "'</y> success registration");
     }
 }
