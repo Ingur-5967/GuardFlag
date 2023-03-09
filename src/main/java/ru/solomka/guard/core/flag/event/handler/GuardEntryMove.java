@@ -10,7 +10,6 @@ import ru.solomka.guard.core.WorldGuardHelper;
 import ru.solomka.guard.core.flag.FlagManager;
 import ru.solomka.guard.core.flag.event.RegionEnteredEvent;
 import ru.solomka.guard.core.flag.event.RegionMovingEvent;
-import ru.solomka.guard.core.gui.GPlaceholder;
 
 public class GuardEntryMove implements Listener {
 

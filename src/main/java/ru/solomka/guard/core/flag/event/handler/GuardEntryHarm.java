@@ -10,7 +10,7 @@ import ru.solomka.guard.core.WorldGuardHelper;
 import ru.solomka.guard.core.flag.FlagManager;
 import ru.solomka.guard.core.flag.enums.Harm;
 import ru.solomka.guard.core.flag.event.RegionHarmEvent;
-import ru.solomka.guard.core.gui.GPlaceholder;
+import ru.solomka.guard.core.GPlaceholder;
 
 public class GuardEntryHarm implements Listener {
 

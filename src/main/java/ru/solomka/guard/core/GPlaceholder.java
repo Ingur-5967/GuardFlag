@@ -1,4 +1,4 @@
-package ru.solomka.guard.core.gui;
+package ru.solomka.guard.core;
 
 import lombok.Getter;
 import org.bukkit.entity.Player;

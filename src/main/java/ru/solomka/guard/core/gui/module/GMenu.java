@@ -11,7 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import ru.solomka.guard.config.Yaml;
 import ru.solomka.guard.config.enums.DirectorySource;
 import ru.solomka.guard.config.files.FileUtils;
-import ru.solomka.guard.core.gui.GPlaceholder;
+import ru.solomka.guard.core.GPlaceholder;
 import ru.solomka.guard.core.gui.GUIManager;
 import ru.solomka.guard.core.gui.module.entity.GComponentMenu;
 import ru.solomka.guard.core.gui.module.entity.GComponentOptional;

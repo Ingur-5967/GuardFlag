@@ -5,7 +5,6 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import ru.solomka.guard.config.Yaml;
 import ru.solomka.guard.core.GRegionManager;
 import ru.solomka.guard.core.WorldGuardHelper;
@@ -13,7 +12,7 @@ import ru.solomka.guard.core.flag.enums.Flag;
 import ru.solomka.guard.core.flag.event.RegionHarmEvent;
 import ru.solomka.guard.core.flag.module.GFlag;
 import ru.solomka.guard.core.flag.utils.FlagRoute;
-import ru.solomka.guard.core.gui.GPlaceholder;
+import ru.solomka.guard.core.GPlaceholder;
 import ru.solomka.guard.core.gui.tools.InventoryUtils;
 import ru.solomka.guard.utils.GLogger;
 
@@ -21,8 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import static org.bukkit.ChatColor.translateAlternateColorCodes;
 
 public class BuildBlockFlag extends GFlag<RegionHarmEvent> {
 
