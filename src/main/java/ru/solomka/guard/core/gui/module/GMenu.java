@@ -11,8 +11,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import ru.solomka.guard.config.Yaml;
 import ru.solomka.guard.config.enums.DirectorySource;
 import ru.solomka.guard.config.files.FileUtils;
+import ru.solomka.guard.core.gui.GPlaceholder;
 import ru.solomka.guard.core.gui.GUIManager;
-import ru.solomka.guard.core.gui.PlaceholderManager;
 import ru.solomka.guard.core.gui.module.entity.GComponentMenu;
 import ru.solomka.guard.core.gui.module.entity.GComponentOptional;
 import ru.solomka.guard.core.gui.module.entity.GMenuAdapter;
@@ -65,7 +65,7 @@ public abstract class GMenu {
             if(meta != null) {
                 meta.setDisplayName(translateAlternateColorCodes('&', file.getString("items." + id + ".name")));
 
-                PlaceholderManager placeholderManager = new PlaceholderManager(
+                GPlaceholder placeholderManager = new GPlaceholder(
                         new String[]{"{current_elements}", "{valid_members}", "{last_edit_flags}"},
                         new String[]{"current_elements", "valid_members", "last_edit_flags"}
                 );
