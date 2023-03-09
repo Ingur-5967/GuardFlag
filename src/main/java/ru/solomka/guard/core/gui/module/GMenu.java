@@ -16,6 +16,7 @@ import ru.solomka.guard.core.gui.GUIManager;
 import ru.solomka.guard.core.gui.module.entity.GComponentMenu;
 import ru.solomka.guard.core.gui.module.entity.GComponentOptional;
 import ru.solomka.guard.core.gui.module.entity.GMenuAdapter;
+import ru.solomka.guard.core.gui.module.entity.GPlaceholderEntry;
 import ru.solomka.guard.core.gui.tools.InventoryUtils;
 import ru.solomka.guard.core.gui.tools.ReplaceUtils;
 
@@ -66,8 +67,9 @@ public abstract class GMenu {
                 meta.setDisplayName(translateAlternateColorCodes('&', file.getString("items." + id + ".name")));
 
                 GPlaceholder placeholderManager = new GPlaceholder(
-                        new String[]{"{current_elements}", "{valid_members}", "{last_edit_flags}"},
-                        new String[]{"current_elements", "valid_members", "last_edit_flags"}
+                        new GPlaceholderEntry("{current_elements}", "current_elements"),
+                        new GPlaceholderEntry("{valid_members}", "valid_members"),
+                        new GPlaceholderEntry("{last_edit_flags}", "last_edit_flags")
                 );
 
                 meta.setLore(ReplaceUtils.getColoredList(placeholderManager.getReplacedElement(file.getStringList("items." + id + ".lore"))));

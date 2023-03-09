@@ -7,8 +7,8 @@ import ru.solomka.guard.core.flag.FlagManager;
 import ru.solomka.guard.core.flag.enums.Flag;
 import ru.solomka.guard.core.flag.event.RegionEnteredEvent;
 import ru.solomka.guard.core.flag.event.RegionHarmEvent;
-import ru.solomka.guard.core.flag.event.RegionLeftEvent;
 import ru.solomka.guard.core.flag.event.RegionMovingEvent;
+import ru.solomka.guard.core.flag.module.impl.BuildBlockFlag;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -46,7 +46,9 @@ public class TriggeredRegionEvent implements Listener {
     public void onHarmRegion(RegionHarmEvent event) {
         switch (event.getHarmType()) {
             case BREAK: {
-                if(flagManager.getGFlagsOf(Flag.ContextFlag.BREAK) == null) return;
+                if(flagManager.getGFlagsOf(Flag.ContextFlag.BREAK) == null)
+                    return;
+
                 flagManager.getGFlagsOf(Flag.ContextFlag.BREAK).forEach(f -> {
                     try {
                         FlagManager.callController(f, event, "onEnable");
@@ -58,7 +60,9 @@ public class TriggeredRegionEvent implements Listener {
                 break;
             }
             case PLACE: {
-                if(flagManager.getGFlagsOf(Flag.ContextFlag.PLACE) == null) return;
+                if(flagManager.getGFlagsOf(Flag.ContextFlag.PLACE) == null)
+                    return;
+
                 flagManager.getGFlagsOf(Flag.ContextFlag.PLACE).forEach(f -> {
                     try {
                         FlagManager.callController(f, event, "onEnable");
@@ -70,7 +74,10 @@ public class TriggeredRegionEvent implements Listener {
                 break;
             }
             case INTERACT_WITH_ITEM: {
-                if(flagManager.getGFlagsOf(Flag.ContextFlag.INTERACT) == null) return;
+                if(flagManager.getGFlagsOf(Flag.ContextFlag.INTERACT) == null) {
+                    event.getPlayer().sendMessage(new BuildBlockFlag().getFailedMessage());
+                    return;
+                }
                 flagManager.getGFlagsOf(Flag.ContextFlag.INTERACT).forEach(f -> {
                     try {
                         FlagManager.callController(f, event, "onEnable");

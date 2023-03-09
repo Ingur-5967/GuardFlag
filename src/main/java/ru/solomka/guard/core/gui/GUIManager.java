@@ -22,7 +22,7 @@ public class GUIManager {
 
     public static void initMenus(GMenu ...gui) {
         MENUS_CONTAINER.addAll(Arrays.stream(gui).collect(Collectors.toList()));
-        GLogger.info("Successful <g>registration</g> of the '" + gui.length + " values' menu");
+        GLogger.info("Successful <g>registration</res> of all GUI");
     }
 
     public void callGUI(@NotNull GMenu menu, Player player) {

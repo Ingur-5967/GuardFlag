@@ -1,7 +1,9 @@
 package ru.solomka.guard.core.gui;
 
 import lombok.Getter;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import ru.solomka.guard.core.gui.module.entity.GPlaceholderEntry;
 import ru.solomka.guard.utils.GLogger;
 
 import java.util.ArrayList;
@@ -12,69 +14,68 @@ import java.util.List;
 public class GPlaceholder {
 
     @Getter
-    private final String[] placeholders;
-    @Getter
-    private final String[] replacement;
+    private final GPlaceholderEntry[] placeholders;
 
-    public GPlaceholder(String[] placeholders, String[] replacement) {
+    public GPlaceholder(GPlaceholderEntry ...placeholders) {
         this.placeholders = placeholders;
-        this.replacement = replacement;
     }
 
     public GPlaceholder() {
-        this(null, null);
+        this(new GPlaceholderEntry[]{});
     }
 
-    public String replaceTags(String current) {
+    @SuppressWarnings("unchecked")
+    public <T> T getReplacedElement(T target) {
 
-        if(current == null) return "";
+        if(placeholders.length < 1) return target;
+
+        for(GPlaceholderEntry placeholder : placeholders) {
+            if (target instanceof List<?>) {
+                List<String> current = (List<String>) target;
+                current.replaceAll(s -> s.replace(placeholder.getReplacementId(), String.valueOf(placeholder.getValue())));
+            }
+            else
+                target = (T) target.toString().replace(placeholder.getReplacementId(), String.valueOf(placeholder.getValue()));
+        }
+        return target;
+    }
+
+    private static String replaceTags(String current) {
+
+        if (current == null) return "";
 
         StringBuilder replacedArguments = new StringBuilder();
 
         for (String argument : current.split(" ")) {
-            if (!argument.startsWith("<")) {
+
+            String sPointColorTagOpen, sPointColorTagClose;
+
+            if(argument.startsWith("<") && (argument.length() > 4 || argument.length() > GColor.RESET.getSyntax().length())) {
+                sPointColorTagOpen = argument.substring(0, 3).toLowerCase();
+                sPointColorTagClose = argument.substring(argument.length() - GColor.RESET.getSyntax().length());
+            }
+            else {
                 replacedArguments.append(argument).append(" ");
                 continue;
             }
 
-            String sPointColorTagOpen = argument.substring(0, 3).toLowerCase();
-            String sPointColorTagClose = argument.substring(argument.length() - 4).toLowerCase();
+            String fPointOpenTag = sPointColorTagOpen;
+            GColor colorTagOpen = Arrays.stream(GColor.values()).filter(c -> c.getSyntax().equals(fPointOpenTag)).findAny().orElse(null);
 
-            GColor colorTagOpen = Arrays.stream(GColor.values()).filter(c -> c.getSyntax().equals(sPointColorTagOpen)).findAny().orElse(null);
+            if (colorTagOpen != null)
+                argument = argument.replace(sPointColorTagOpen, colorTagOpen.getColorCode());
 
-            if (colorTagOpen == null)
-                throw new IllegalArgumentException(String.format("Color tag (<OPEN_TAG>) of argument [%s] was not found", argument));
-
-            if (!sPointColorTagClose.startsWith("</"))
-                throw new IllegalArgumentException(String.format("Color tag (</CLOSE_TAG>) of argument [%s] was not found", argument));
-
-            argument = argument.replace(sPointColorTagOpen, colorTagOpen.getColorCode()).replace(sPointColorTagClose, GColor.RESET.getColorCode());
+            if(sPointColorTagClose.startsWith("</"))
+                argument = argument.replace(sPointColorTagClose, GColor.RESET.getColorCode());
 
             replacedArguments.append(argument).append(" ");
         }
         return replacedArguments.toString();
     }
 
-
-    @SuppressWarnings("unchecked")
-    public <T> T getReplacedElement(T target) {
-
-        if (placeholders.length != replacement.length) {
-            GLogger.error("Invalid length placeholders");
-            return target;
-        }
-
-        for (int pI = 0; pI < placeholders.length; pI++) {
-            if (target instanceof List<?>) {
-                List<String> currentList = (List<String>) target;
-                int fPI = pI;
-                currentList.replaceAll(s -> s.replace(placeholders[fPI], replacement[fPI]));
-            } else
-                target = (T) target.toString().replace(placeholders[pI], replacement[pI]);
-        }
-        return target;
+    public String getReplacedElementOfTags(String element) {
+        return replaceTags(element);
     }
-
 
     public enum GColor {
 
@@ -83,7 +84,7 @@ public class GPlaceholder {
         YELLOW("<y>", "\u001b[33m"),
         BLUE("<b>", "\u001b[34m"),
         WHITE("<w>", "\u001b[37m"),
-        RESET("", "\u001b[0m");
+        RESET("</res>", "\u001b[0m");
 
         @Getter
         private final String syntax;

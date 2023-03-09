@@ -43,8 +43,6 @@ public class Main extends JavaPlugin {
 
         CommandManager.init(new RegionFlagCommand());
 
-        //GLogger.info("123", "231", "321");
-
         WorldGuardHelper.checkAllRegions();
     }
 

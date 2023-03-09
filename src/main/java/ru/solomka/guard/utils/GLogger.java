@@ -24,6 +24,6 @@ public class GLogger {
     }
 
     private static void logger(String prefix, Object... values) {
-        Arrays.stream(values).map(String::valueOf).forEach(value -> Main.getInstance().getLogger().info(prefix + " >> " + new GPlaceholder().replaceTags(value)));
+        Arrays.stream(values).map(String::valueOf).forEach(value -> Main.getInstance().getLogger().info(prefix + " >> " + new GPlaceholder().getReplacedElementOfTags(value)));
     }
 }
