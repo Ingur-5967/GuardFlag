@@ -19,5 +19,4 @@ public class InventoryUtils {
     public static ItemStack toItemStack(Material value) {
         return new ItemStack(value);
     }
-
 }

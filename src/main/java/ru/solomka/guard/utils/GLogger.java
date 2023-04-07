@@ -1,7 +1,7 @@
 package ru.solomka.guard.utils;
 
 import ru.solomka.guard.Main;
-import ru.solomka.guard.core.GPlaceholder;
+import ru.solomka.guard.core.utils.GPlaceholder;
 
 import java.util.*;
 

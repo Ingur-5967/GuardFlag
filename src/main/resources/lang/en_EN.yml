@@ -1,0 +1,12 @@
+
+
+denied-access-build-flag: "You can't put/break blocks in someone else's region!"
+#
+action-bar:
+  entered-to-region: "You have entered the territory of the region - &7[&d%region%&7]"
+  left-from-region: "You have left the territory of the region - &7[&d%region%&7]"
+#
+flag:
+  flag-success-added: "&fThe &6%flag%&f flag has been successfully &aadded&f!"
+  flag-success-removed: "&fThe &6%flag%&f flag has been successfully &cremoved&f!"
+  flags-success-clear: "&fAll the flags of the region have been cleared!"

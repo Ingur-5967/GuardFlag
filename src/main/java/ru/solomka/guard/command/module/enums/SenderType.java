@@ -5,15 +5,19 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.ServerOperator;
+
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public enum SenderType {
-    PLAYER(Player.class),
-    CONSOLE(ConsoleCommandSender.class),
-    PLAYER_OP(Player.class);
+    PLAYER(p -> p instanceof Player),
+    CONSOLE(p -> p instanceof ConsoleCommandSender),
+    PLAYER_OP(p -> (p instanceof Player && p.isOp()));
 
-    @Getter private final Class<? extends CommandSender> iClass;
+    @Getter private final Predicate<CommandSender> predicate;
 
-    SenderType(Class<? extends CommandSender> iClass) {
-        this.iClass = iClass;
+    SenderType(Predicate<CommandSender> predicate) {
+        this.predicate = predicate;
     }
 }

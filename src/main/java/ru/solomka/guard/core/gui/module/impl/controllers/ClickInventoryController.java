@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import ru.solomka.guard.core.gui.GUIManager;
-import ru.solomka.guard.core.gui.module.entity.GComponentMenu;
+import ru.solomka.guard.core.gui.module.entity.BaseElement;
 
 public class ClickInventoryController implements Listener {
 
@@ -22,10 +22,10 @@ public class ClickInventoryController implements Listener {
 
         event.setCancelled(true);
 
-        GComponentMenu component = guiManager.getComponentOfSlot(guiManager.getGUIOfTitle(inventory.getTitle()), slot);
+        BaseElement<?> component = guiManager.getComponentOfSlot(guiManager.getGUIOfTitle(inventory.getTitle()), slot);
 
-        if(component == null || component.getTrigger() == null) return;
+        if(component == null || component.getAction() == null) return;
 
-        component.getTrigger().accept(event);
+        component.getAction().accept(event);
     }
 }

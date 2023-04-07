@@ -1,6 +1,5 @@
 package ru.solomka.guard.command.module.impl;
 
-import com.sk89q.worldguard.bukkit.WGBukkit;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.Location;
@@ -13,16 +12,15 @@ import ru.solomka.guard.command.module.enums.SenderType;
 import ru.solomka.guard.config.Yaml;
 import ru.solomka.guard.config.enums.DirectorySource;
 import ru.solomka.guard.core.GRegionManager;
-import ru.solomka.guard.core.WorldGuardHelper;
+import ru.solomka.guard.core.scoreboard.GScoreboard;
+import ru.solomka.guard.core.utils.WorldGuardHelper;
 import ru.solomka.guard.core.flag.FlagManager;
-import ru.solomka.guard.core.flag.enums.Flag;
+import ru.solomka.guard.core.flag.entity.enums.Flag;
 import ru.solomka.guard.core.flag.module.GFlag;
 import ru.solomka.guard.core.gui.GUIManager;
 import ru.solomka.guard.core.gui.module.impl.GuardMenu;
-import ru.solomka.guard.core.gui.module.impl.ViewRegionsMenu;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -34,7 +32,7 @@ public class RegionFlagCommand extends ECommand {
         super(
                 SenderType.PLAYER,
                 "drg",
-                "drg.usage",
+                null,
                 null,
                 new Object[]{
                         new TabViewCommand(0, new Object[]{"flag", "info", "regions"}),
@@ -60,9 +58,14 @@ public class RegionFlagCommand extends ECommand {
 
         ProtectedRegion region;
 
-        GRegionManager gRegionManager = new GRegionManager();
+        GRegionManager gRegionManager;
 
         if (args[0].equalsIgnoreCase("flag")) {
+
+            new GScoreboard().setupToPlayer(player, GScoreboard.Builder.of().initObjective("&cRegion info").initScores(
+                    GScoreboard.EMPTY_ARGUMENT, "&7&l> &fРегион: &7[&6some_name&7]", "&7&l> &fВладелец: &7[&asome_name&7]",
+                    GScoreboard.EMPTY_ARGUMENT
+            ));
 
             if (args.length < 4) {
                 player.sendMessage(getHelpCommand());
@@ -75,6 +78,8 @@ public class RegionFlagCommand extends ECommand {
                 player.sendMessage("Регион не существует!");
                 return true;
             }
+
+            gRegionManager = new GRegionManager(region.getId());
 
             if (!player.isOp() && !region.getOwners().contains(player.getUniqueId())) {
                 player.sendMessage("Вы не являетесь владельцем региона");
@@ -94,7 +99,7 @@ public class RegionFlagCommand extends ECommand {
 
             if (state.equals("clear")) {
                 player.sendMessage("Вы успешно очистили параметры флага");
-                gRegionManager.getFileRegion(region.getId()).set("flags." + flagName + ".params", "");
+                gRegionManager.getFileRegion().set("flags." + flagName + ".params", "");
                 return true;
             }
 
@@ -113,10 +118,10 @@ public class RegionFlagCommand extends ECommand {
                 return true;
             }
 
-            if (gRegionManager.getFileRegion(region.getId()) == null)
-                gRegionManager.createRegionFile(region.getId());
+            if (gRegionManager.getFileRegion() == null)
+                gRegionManager.createRegionFile();
 
-            Yaml file = gRegionManager.getFileRegion(region.getId());
+            Yaml file = gRegionManager.getFileRegion();
 
             GFlag<?> controller = FlagManager.getControllerOfId(args[2]);
 
@@ -160,7 +165,6 @@ public class RegionFlagCommand extends ECommand {
             } else file.set("flags." + flagName + ".params", args[3]);
 
         } else if (args[0].equalsIgnoreCase("info")) {
-
             if (args.length < 2) {
                 player.sendMessage(getHelpCommand());
                 return true;
@@ -173,20 +177,6 @@ public class RegionFlagCommand extends ECommand {
                 return true;
             }
             new GUIManager().callGUI(new GuardMenu(), player);
-        } else if (args[0].equalsIgnoreCase("regions")) {
-
-
-            File dir = new File(Main.getInstance().getDataFolder() + File.separator + DirectorySource.DATA.getType());
-
-            if (dir.isDirectory()) {
-                if (dir.listFiles() == null) return true;
-
-                //TODO
-
-                List<File> files = Arrays.stream(Objects.requireNonNull(dir.listFiles())).collect(Collectors.toList());
-
-                new GUIManager().callGUI(new ViewRegionsMenu(), player);
-            }
         }
         return true;
     }

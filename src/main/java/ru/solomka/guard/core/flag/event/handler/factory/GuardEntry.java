@@ -11,7 +11,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
-import ru.solomka.guard.core.WorldGuardHelper;
+import ru.solomka.guard.core.utils.WorldGuardHelper;
 import ru.solomka.guard.core.flag.event.RegionEnteredEvent;
 import ru.solomka.guard.core.flag.event.RegionLeftEvent;
 import ru.solomka.guard.core.flag.event.RegionMovingEvent;

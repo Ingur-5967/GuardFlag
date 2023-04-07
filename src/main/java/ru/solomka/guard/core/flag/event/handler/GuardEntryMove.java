@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import ru.solomka.guard.core.WorldGuardHelper;
+import ru.solomka.guard.core.utils.WorldGuardHelper;
 import ru.solomka.guard.core.flag.FlagManager;
 import ru.solomka.guard.core.flag.event.RegionEnteredEvent;
 import ru.solomka.guard.core.flag.event.RegionMovingEvent;

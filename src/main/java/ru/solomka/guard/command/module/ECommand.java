@@ -1,18 +1,16 @@
 package ru.solomka.guard.command.module;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.jetbrains.annotations.NotNull;
 import ru.solomka.guard.command.module.enums.SenderType;
+import ru.solomka.guard.utils.GLogger;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Predicate;
 
 @AllArgsConstructor
 public abstract class ECommand implements ECommandHelper {
@@ -27,13 +25,12 @@ public abstract class ECommand implements ECommandHelper {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
-        if(!validExecutor(sender, s -> senderType == SenderType.PLAYER_OP ? s.getClass().equals(senderType.getIClass()) && s.isOp() : s.getClass().equals(senderType.getIClass()))) {
+        if(!(senderType == SenderType.PLAYER_OP ? SenderType.PLAYER_OP.getPredicate().test(sender) : SenderType.PLAYER.getPredicate().test(sender))) {
             sender.sendMessage(String.format("You're cannot execute this command, maybe you not '%s'", senderType.name()));
             return true;
         }
 
-        if(permission != null && !validExecutor(sender, s -> permission.equals("*") || permission.equals("op") ? s.isOp() : s.hasPermission(permission))) {
+        if(permission != null && !((permission.equals("*") || permission.equals("op")) ? sender.isOp() : sender.hasPermission(permission))) {
             sender.sendMessage("You're cannot execute this command, maybe you don't have permission!");
             return true;
         }
@@ -51,16 +48,9 @@ public abstract class ECommand implements ECommandHelper {
         if ((args.length - 1) > getToViewElementsWrapper().length)
             return Collections.emptyList();
 
-        if (getToViewElementsWrapper().length == 1)
-            return getTabsOfArgumentIndex(getToViewElementsWrapper(), 0);
-
         if (getToViewElementsWrapper()[args.length - 1] == null)
             return Collections.emptyList();
 
         return getTabsOfArgumentIndex(getToViewElementsWrapper(), args.length - 1);
-    }
-
-    public boolean validExecutor(CommandSender sender, @NotNull Predicate<CommandSender> predicate) {
-        return predicate.test(sender);
     }
 }

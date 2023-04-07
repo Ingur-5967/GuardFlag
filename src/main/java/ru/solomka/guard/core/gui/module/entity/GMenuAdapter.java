@@ -10,5 +10,5 @@ import java.util.List;
 @Data @AllArgsConstructor
 public class GMenuAdapter {
     private final Inventory inventory;
-    @Setter private List<GComponentMenu> components;
+    @Setter private List<BaseElement<?>> components;
 }

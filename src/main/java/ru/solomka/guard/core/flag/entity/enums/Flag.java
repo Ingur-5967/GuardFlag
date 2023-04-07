@@ -1,4 +1,4 @@
-package ru.solomka.guard.core.flag.enums;
+package ru.solomka.guard.core.flag.entity.enums;
 
 import lombok.Getter;
 import org.bukkit.Material;
@@ -13,7 +13,8 @@ public enum Flag {
     BLOCK_BUILD("block-build", new Object[]{":"}, Arrays.stream(Material.values()).map(String::valueOf).collect(Collectors.toList()), ContextFlag.BREAK, ContextFlag.PLACE),
     SAVE_ITEMS("save-items", new Object[]{"true", "false"}, Arrays.asList("true", "false"), ContextFlag.DEAD),
     REDSTONE_CONTROLLER("redstone", new Object[]{"true", "false"}, Arrays.asList("true", "false"), ContextFlag.INTERACT),
-    FLY_ENABLE("fly-enable", new Object[]{"true", "false"}, Arrays.asList("true", "false"), ContextFlag.ENTERED_REGION, ContextFlag.LEFT_REGION);
+    FLY_ENABLE("fly-enable", new Object[]{"true", "false"}, Arrays.asList("true", "false"), ContextFlag.ENTERED_REGION, ContextFlag.LEFT_REGION),
+    INTERACT_ITEMS("interact-items", new Object[]{"true", "false"}, Arrays.stream(Material.values()).map(String::valueOf).collect(Collectors.toList()), ContextFlag.INTERACT);
 
     @Getter private final String idFlag;
     @Getter private final Object[] argumentsToCommand;

@@ -1,4 +1,4 @@
-package ru.solomka.guard.config.files;
+package ru.solomka.guard.config.utils;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;

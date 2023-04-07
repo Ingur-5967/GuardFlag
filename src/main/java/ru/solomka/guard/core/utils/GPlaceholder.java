@@ -1,4 +1,4 @@
-package ru.solomka.guard.core;
+package ru.solomka.guard.core.utils;
 
 import lombok.Getter;
 import org.bukkit.entity.Player;
@@ -14,28 +14,26 @@ import java.util.List;
 public class GPlaceholder {
 
     @Getter
-    private final GPlaceholderEntry[] placeholders;
+    private GPlaceholderEntry[] placeholders;
 
     public GPlaceholder(GPlaceholderEntry ...placeholders) {
         this.placeholders = placeholders;
     }
 
-    public GPlaceholder() {
-        this(new GPlaceholderEntry[]{});
-    }
+    public GPlaceholder() {}
 
     @SuppressWarnings("unchecked")
-    public <T> T getReplacedElement(T target) {
+    public <T> T replaceElements(T target) {
 
         if(placeholders.length < 1) return target;
 
         for(GPlaceholderEntry placeholder : placeholders) {
             if (target instanceof List<?>) {
                 List<String> current = (List<String>) target;
-                current.replaceAll(s -> s.replace(placeholder.getReplacementId(), String.valueOf(placeholder.getValue())));
+                current.replaceAll(s -> s.replace(placeholder.getReplacement(), String.valueOf(placeholder.getValue())));
             }
             else
-                target = (T) target.toString().replace(placeholder.getReplacementId(), String.valueOf(placeholder.getValue()));
+                target = (T) target.toString().replace(placeholder.getReplacement(), String.valueOf(placeholder.getValue()));
         }
         return target;
     }

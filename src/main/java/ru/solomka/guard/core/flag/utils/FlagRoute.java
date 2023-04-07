@@ -1,9 +1,8 @@
 package ru.solomka.guard.core.flag.utils;
 
-import org.jetbrains.annotations.Nullable;
 import ru.solomka.guard.config.Yaml;
 import ru.solomka.guard.core.GRegionManager;
-import ru.solomka.guard.core.flag.enums.Flag;
+import ru.solomka.guard.core.flag.entity.enums.Flag;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -12,7 +11,7 @@ public class FlagRoute {
 
     @SuppressWarnings("unchecked")
     public static <T> T getParamsFlag(String idRegion, String idFlag) {
-        Yaml file = new GRegionManager().getFileRegion(idRegion);
+        Yaml file = new GRegionManager(idRegion).getFileRegion();
 
         Flag flag = Arrays.stream(Flag.values()).filter(f -> f.getIdFlag().equals(idFlag)).findAny().orElse(null);
 
@@ -31,6 +30,6 @@ public class FlagRoute {
     }
 
     public static boolean isExistsFlag(String idRegion, String idFlag) {
-        return new GRegionManager().getFileRegion(idRegion).getString("flags." + idFlag) != null;
+        return new GRegionManager(idRegion).getFileRegion().getString("flags." + idFlag) != null;
     }
 }

@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data @AllArgsConstructor
 public class GPlaceholderEntry {
-    private final String replacementId;
+    private final String replacement;
     private final Object value;
 }

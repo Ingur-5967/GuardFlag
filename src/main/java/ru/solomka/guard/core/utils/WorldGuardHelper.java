@@ -1,8 +1,7 @@
-package ru.solomka.guard.core;
+package ru.solomka.guard.core.utils;
 
 import com.sk89q.worldguard.bukkit.WGBukkit;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import com.sk89q.worldguard.domains.PlayerDomain;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.Bukkit;
@@ -13,7 +12,7 @@ import org.bukkit.plugin.Plugin;
 import ru.solomka.guard.Main;
 import ru.solomka.guard.config.Yaml;
 import ru.solomka.guard.config.enums.DirectorySource;
-import ru.solomka.guard.config.files.FileUtils;
+import ru.solomka.guard.config.utils.FileUtils;
 
 import java.io.File;
 import java.util.Arrays;

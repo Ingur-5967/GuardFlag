@@ -1,0 +1,9 @@
+lang: en_EN
+#
+notification:
+  #
+  region-left:
+    action-bar: true
+  #
+  region-entered:
+    action-bar: true
