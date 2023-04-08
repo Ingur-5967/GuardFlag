@@ -1,5 +1,10 @@
 package ru.solomka.guard.core.gui.module.impl;
 
+import org.bukkit.entity.Player;
+import ru.solomka.guard.config.Yaml;
+import ru.solomka.guard.config.enums.DirectorySource;
+import ru.solomka.guard.config.utils.FileUtils;
+import ru.solomka.guard.core.gui.GUIController;
 import ru.solomka.guard.core.gui.module.GMenu;
 import ru.solomka.guard.core.gui.module.entity.BaseElement;
 import ru.solomka.guard.core.gui.module.entity.GMenuAdapter;
@@ -16,11 +21,6 @@ public class GuardMenu extends GMenu {
 
     @Override
     public List<BaseElement<?>> initComponents(GMenuAdapter adapter) {
-        List<BaseElement<?>> componentMenuList = new ArrayList<>();
-        adapter.getComponents().forEach(c -> {
-            c.setAction(click -> click.setCancelled(true));
-            componentMenuList.add(c);
-        });
-        return componentMenuList;
+        return new ArrayList<>(adapter.getComponents());
     }
 }

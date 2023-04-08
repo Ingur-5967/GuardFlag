@@ -15,11 +15,15 @@ import java.util.function.Consumer;
 public abstract class BaseElement<T extends BaseElement<T>> implements Listener {
 
     @Getter private final String className;
+
+    @Getter private final int id;
+
     @Getter private final ElementOption elementOption;
     @Getter @Setter private Consumer<InventoryClickEvent> action;
 
-    protected BaseElement(String className, ElementOption elementOption) {
+    public BaseElement(String className, int id, ElementOption elementOption) {
         this.className = className;
+        this.id = id;
         this.elementOption = elementOption;
         this.action = a -> {};
     }

@@ -11,8 +11,8 @@ import ru.solomka.guard.utils.GLogger;
 
 public class GSlider extends BaseElement<GSlider> implements DraggableElement {
 
-    protected GSlider(ElementOption elementOption) {
-        super("SLIDER", elementOption);
+    protected GSlider(int id, ElementOption elementOption) {
+        super("SLIDER", id, elementOption);
     }
 
     @Override

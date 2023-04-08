@@ -9,11 +9,13 @@ import org.bukkit.inventory.ItemStack;
 import ru.solomka.guard.config.Yaml;
 import ru.solomka.guard.config.enums.DirectorySource;
 import ru.solomka.guard.config.utils.FileUtils;
+import ru.solomka.guard.core.gui.GUIController;
 import ru.solomka.guard.core.gui.GUIManager;
 import ru.solomka.guard.core.gui.module.entity.BaseElement;
 import ru.solomka.guard.core.gui.module.entity.GMenuAdapter;
 import ru.solomka.guard.core.gui.module.entity.component.GButton;
 import ru.solomka.guard.core.gui.tools.InventoryUtils;
+import ru.solomka.guard.utils.GLogger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,11 +46,33 @@ public abstract class GMenu {
 
             ItemStack item = new GUIManager.GUIComponentBuilder(id, fileControllerName).resolveItemById().initMeta().getItem();
 
-            GButton gButton = new GButton(new BaseElement.ElementOption(item, file.getInt("items." + id + ".slot")))
+            GButton gButton = new GButton(id, new BaseElement.ElementOption(item, file.getInt("items." + id + ".slot")))
                     .registerComponent().getInstance();
 
-            componentMenuList.add(gButton);
+            GUIController guiController = new GUIController(getFileControllerName());
+            List<GUIController.GCommandGUI<?, ?>> commands = guiController.getGCommands(id);
+            List<String> fCommands = file.getStringList("items." + id + ".action");
 
+            GLogger.info(commands.size());
+
+            gButton.setAction(s -> {
+                int index = 0;
+
+                s.setCancelled(true);
+
+                if(fCommands.isEmpty())
+                    return;
+
+                for(GUIController.GCommandGUI<?, ?> command : commands) {
+                    guiController.execute(
+                            command.getCommand(),
+                            !command.isNeedArgument() ? new Object() : fCommands.get(index).split(":")[1],
+                            (Player) s.getWhoClicked()
+                    );
+                    index++;
+                }
+            });
+            componentMenuList.add(gButton);
             inventory.setItem(file.getInt("items." + id + ".slot"), item);
         }
 

@@ -5,8 +5,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import ru.solomka.guard.config.Yaml;
+import ru.solomka.guard.config.enums.DirectorySource;
+import ru.solomka.guard.config.utils.FileUtils;
+import ru.solomka.guard.core.gui.GUIController;
 import ru.solomka.guard.core.gui.GUIManager;
 import ru.solomka.guard.core.gui.module.entity.BaseElement;
+
+import java.util.List;
 
 public class ClickInventoryController implements Listener {
 
@@ -20,12 +26,12 @@ public class ClickInventoryController implements Listener {
 
         if(inventory == null || inventory == player.getInventory()) return;
 
-        event.setCancelled(true);
-
         BaseElement<?> component = guiManager.getComponentOfSlot(guiManager.getGUIOfTitle(inventory.getTitle()), slot);
 
-        if(component == null || component.getAction() == null) return;
-
+        if(component == null || component.getAction() == null) {
+            event.setCancelled(true);
+            return;
+        }
         component.getAction().accept(event);
     }
 }

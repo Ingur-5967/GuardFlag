@@ -20,7 +20,8 @@ items:
       - " "
       - "&F>> Количество валидиных участников: &c{valid_members} "
       - " "
-    action: []
+    action:
+      - "SEND:ПШЕЛ ВОН"
   2:
     slot: 14
     name: "&dРегион"

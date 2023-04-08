@@ -53,6 +53,12 @@ public class GUIManager {
                 .findAny().orElse(null);
     }
 
+    public GMenu getGUIOfController(String file) {
+        return MENUS_CONTAINER.stream()
+                .filter(m -> m.getFileControllerName().equals(file))
+                .findAny().orElse(null);
+    }
+
     public List<BaseElement<?>> getComponentsGUI(@NotNull GMenu gui) {
         return gui.initMenu().getComponents();
     }
