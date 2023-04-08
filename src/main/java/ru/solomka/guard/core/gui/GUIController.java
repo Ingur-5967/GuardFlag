@@ -56,11 +56,9 @@ public class GUIController {
     @SuppressWarnings("unchecked")
     public <T, C> void execute(String command, T object, C entity) {
         GCommandGUI<T, C> gCommand = (GCommandGUI<T, C>) findByName(command);
-        if(command == null || (!gCommand.getSplitter().equals("") && Objects.equals(entity, new Object()))) {
-            GLogger.debug(String.format("Command doesn't contains splitter ('%s')", command));
+        if(command == null || (!gCommand.getSplitter().equals("") && Objects.equals(entity, new Object())))
             return;
-        }
-        GLogger.info(command, object, entity);
+
         gCommand.getAction().accept(object, entity);
     }
 
