@@ -13,6 +13,7 @@ import ru.solomka.guard.core.flag.event.RegionHarmEvent;
 import ru.solomka.guard.core.flag.module.GFlag;
 import ru.solomka.guard.core.flag.utils.FlagRoute;
 import ru.solomka.guard.core.gui.tools.InventoryUtils;
+import ru.solomka.guard.utils.GLogger;
 
 import java.util.HashMap;
 import java.util.List;
@@ -62,6 +63,8 @@ public class BuildBlockFlag extends GFlag<RegionHarmEvent> {
 
             states.put(Material.getMaterial(paramHeader), file.getString("flags." + getIdFlag() + ".params." + paramHeader));
         }
+
+        GLogger.info(event.getHarmType());
 
         if (states.containsKey(block.getType())) {
             for (Map.Entry<Material, String> aMap : states.entrySet())

@@ -57,8 +57,7 @@ public class WorldGuardHelper {
     public static void checkAllRegions() {
         File dir = new File(Main.getInstance().getDataFolder() + File.separator + DirectorySource.DATA.getType());
 
-        if (!dir.exists() || !dir.isDirectory()) return;
-
+        if (!dir.exists() || !dir.isDirectory() || dir.listFiles() == null) return;
         if (dir.listFiles() == null) return;
 
         List<File> files = Arrays.stream(Objects.requireNonNull(dir.listFiles())).collect(Collectors.toList());

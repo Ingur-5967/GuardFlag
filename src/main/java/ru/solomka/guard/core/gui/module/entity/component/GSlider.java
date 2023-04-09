@@ -1,8 +1,6 @@
 package ru.solomka.guard.core.gui.module.entity.component;
 
-import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.inventory.Inventory;
 import ru.solomka.guard.core.gui.module.entity.BaseElement;
 import ru.solomka.guard.core.gui.module.entity.DraggableElement;
 import ru.solomka.guard.core.gui.module.entity.GMenuAdapter;
@@ -21,11 +19,6 @@ public class GSlider extends BaseElement<GSlider> implements DraggableElement {
     }
 
     @Override
-    public GSlider getInstance() {
-        return null;
-    }
-
-    @Override
     public void onDrag(InventoryDragEvent e) {
         if(!getValidPosition().getCheck().test(e.getInventory())) {
             cancelAction(e.getInventory(), e.getCursor(), e);
@@ -37,5 +30,10 @@ public class GSlider extends BaseElement<GSlider> implements DraggableElement {
     @Override
     public InventoryPosition getValidPosition() {
         return InventoryPosition.OTHER_INVENTORY;
+    }
+
+    @Override
+    public GSlider getInstance() {
+        return this;
     }
 }

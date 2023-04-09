@@ -15,7 +15,6 @@ import ru.solomka.guard.core.gui.module.entity.BaseElement;
 import ru.solomka.guard.core.gui.module.entity.GMenuAdapter;
 import ru.solomka.guard.core.gui.module.entity.component.GButton;
 import ru.solomka.guard.core.gui.tools.InventoryUtils;
-import ru.solomka.guard.utils.GLogger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,23 +52,17 @@ public abstract class GMenu {
             List<GUIController.GCommandGUI<?, ?>> commands = guiController.getGCommands(id);
             List<String> fCommands = file.getStringList("items." + id + ".action");
 
-            GLogger.info(commands.size());
-
             gButton.setAction(s -> {
-                int index = 0;
-
                 s.setCancelled(true);
 
-                if(fCommands.isEmpty())
-                    return;
+                if(fCommands.isEmpty()) return;
 
                 for(GUIController.GCommandGUI<?, ?> command : commands) {
                     guiController.execute(
                             command.getCommand(),
-                            !command.isNeedArgument() ? new Object() : fCommands.get(index).split(":")[1],
+                            !command.isNeedArgument() ? new Object() : fCommands.get(commands.indexOf(command)).split(":")[1],
                             (Player) s.getWhoClicked()
                     );
-                    index++;
                 }
             });
             componentMenuList.add(gButton);

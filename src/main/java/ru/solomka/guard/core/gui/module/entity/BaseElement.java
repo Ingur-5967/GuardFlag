@@ -15,9 +15,7 @@ import java.util.function.Consumer;
 public abstract class BaseElement<T extends BaseElement<T>> implements Listener {
 
     @Getter private final String className;
-
     @Getter private final int id;
-
     @Getter private final ElementOption elementOption;
     @Getter @Setter private Consumer<InventoryClickEvent> action;
 

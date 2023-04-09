@@ -91,7 +91,7 @@ public class GScoreboard {
         }
 
         @Contract(" -> new")
-        public static @NotNull Builder of() {
+        public static @NotNull Builder builder() {
             return new Builder();
         }
     }

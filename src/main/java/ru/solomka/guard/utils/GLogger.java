@@ -1,7 +1,8 @@
 package ru.solomka.guard.utils;
 
+import org.bukkit.Material;
 import ru.solomka.guard.Main;
-import ru.solomka.guard.core.utils.GPlaceholder;
+import ru.solomka.guard.core.gui.tools.GPlaceholder;
 
 import java.util.*;
 

@@ -9,6 +9,7 @@ import ru.solomka.guard.config.enums.DirectorySource;
 import ru.solomka.guard.core.GMetaData;
 import ru.solomka.guard.core.flag.event.handler.GuardEntryBlock;
 import ru.solomka.guard.core.flag.module.impl.InteractFlag;
+import ru.solomka.guard.core.gui.module.impl.DevMenu;
 import ru.solomka.guard.core.utils.WorldGuardHelper;
 import ru.solomka.guard.core.flag.FlagManager;
 import ru.solomka.guard.core.flag.event.handler.GuardEntryMove;
@@ -34,12 +35,12 @@ public class Main extends JavaPlugin {
                 new GuardEntryMove(), new ClickInventoryController());
 
         RegistrationService.initConfigs(DirectorySource.DATA, "example");
-        RegistrationService.initConfigs(DirectorySource.MENU, "info_menu");
+        RegistrationService.initConfigs(DirectorySource.MENU, "info_menu", "dev_menu");
         RegistrationService.initConfigs(DirectorySource.NONE, "config");
 
         FlagManager.initCustomFlags(new BuildBlockFlag(), new FlyFlag(), new InteractFlag());
 
-        GUIManager.initMenus(new GuardMenu());
+        GUIManager.initMenus(new GuardMenu(), new DevMenu());
 
         CommandManager.init(new RegionFlagCommand());
 
@@ -47,10 +48,5 @@ public class Main extends JavaPlugin {
     }
 
     @Override
-    public void onDisable() {
-
-
-
-        GMetaData.removeContainer();
-    }
+    public void onDisable() {}
 }

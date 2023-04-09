@@ -57,7 +57,7 @@ public class GMetaData {
         return entries;
     }
 
-    public static void removeContainer() {
+    public void removeContainer() {
         CONTAINER = null;
     }
 

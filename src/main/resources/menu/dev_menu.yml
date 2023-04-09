@@ -1,7 +1,7 @@
 items:
   0:
     slot: 12
-    name: "&dФлаги"
+    name: "&dХуй"
     class: BUTTON
     itemstack: IRON_SWORD
     id: "Item_Flags"
@@ -12,7 +12,7 @@ items:
     action: []
   1:
     slot: 13
-    name: "&dУчастники"
+    name: "&dЧлен"
     class: BUTTON
     itemstack: GOLD_BOOTS
     id: "Item_Members"
@@ -23,10 +23,10 @@ items:
     action:
       - "SEND:ПШЕЛ ВОН"
       - "CLOSE"
-      - "OPEN:dev_menu"
+      - "OPEN:info_menu"
   2:
     slot: 14
-    name: "&dРегион"
+    name: "&dДаун"
     class: BUTTON
     itemstack: ARROW
     id: "Item_Region"
@@ -35,12 +35,3 @@ items:
       - "&F>> Последнее изменение флага: &c{last_edit_flags} "
       - " "
     action: []
-  3:
-    slot: 0
-    name: " &7<< &c&lЗакрыть &7>>"
-    class: BUTTON
-    itemstack: REDSTONE
-    id: "Item_Close"
-    lore: []
-    action:
-      - "CLOSE"

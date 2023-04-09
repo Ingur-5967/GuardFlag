@@ -9,7 +9,6 @@ import java.util.List;
 
 public class GButton extends BaseElement<GButton> {
 
-
     public GButton(int id, ElementOption elementOption) {
         super("BUTTON", id, elementOption);
     }

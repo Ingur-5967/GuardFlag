@@ -19,6 +19,7 @@ import ru.solomka.guard.core.flag.entity.enums.Flag;
 import ru.solomka.guard.core.flag.module.GFlag;
 import ru.solomka.guard.core.gui.GUIManager;
 import ru.solomka.guard.core.gui.module.impl.GuardMenu;
+import ru.solomka.guard.utils.GLogger;
 
 import java.io.File;
 import java.util.Arrays;
@@ -60,9 +61,22 @@ public class RegionFlagCommand extends ECommand {
 
         GRegionManager gRegionManager;
 
-        if (args[0].equalsIgnoreCase("flag")) {
+        if(args[0].equalsIgnoreCase("tp")) {
+            if(args.length < 2) {
+                player.sendMessage(getHelpCommand());
+                return true;
+            }
 
-            new GScoreboard().setupToPlayer(player, GScoreboard.Builder.of().initObjective("&cRegion info").initScores(
+            region = regionManager.getRegion(args[1]);
+
+            if (region == null) {
+                player.sendMessage("Регион не существует!");
+                return true;
+            }
+            player.teleport(WorldGuardHelper.getCenterRegionLocation(region));
+        } else if (args[0].equalsIgnoreCase("flag")) {
+
+            new GScoreboard().setupToPlayer(player, GScoreboard.Builder.builder().initObjective("&cRegion info").initScores(
                     GScoreboard.EMPTY_ARGUMENT, "&7&l> &fРегион: &7[&6some_name&7]", "&7&l> &fВладелец: &7[&asome_name&7]",
                     GScoreboard.EMPTY_ARGUMENT
             ));
@@ -86,20 +100,21 @@ public class RegionFlagCommand extends ECommand {
                 return true;
             }
 
-            String flagName = args[2].toLowerCase();
+            // /drg flag region flag_name value
 
-            Flag targetFlag = Arrays.stream(Flag.values()).filter(f -> f.getIdFlag().equals(flagName)).findAny().orElse(null);
+            Flag targetFlag = Arrays.stream(Flag.values()).filter(f -> f.name().equals(args[2].toUpperCase())).findAny().orElse(null);
 
             if (targetFlag == null) {
                 player.sendMessage("Флаг не найден!");
                 return true;
             }
 
+            String flagState = Flag.valueOf(args[2].toUpperCase()).getIdFlag();
             String state = args[3].toLowerCase();
 
             if (state.equals("clear")) {
                 player.sendMessage("Вы успешно очистили параметры флага");
-                gRegionManager.getFileRegion().set("flags." + flagName + ".params", "");
+                gRegionManager.getFileRegion().set("flags." + Flag.valueOf(args[2].toUpperCase()).getIdFlag() + ".params", "");
                 return true;
             }
 
@@ -123,7 +138,7 @@ public class RegionFlagCommand extends ECommand {
 
             Yaml file = gRegionManager.getFileRegion();
 
-            GFlag<?> controller = FlagManager.getControllerOfId(args[2]);
+            GFlag<?> controller = FlagManager.getControllerOfId(flagState);
 
             if (controller == null)
                 throw new NullPointerException("Controller cannot be null!");
@@ -157,12 +172,14 @@ public class RegionFlagCommand extends ECommand {
             if (location == null || location.getWorld() == null) return true;
 
             file.set("world", location.getWorld().getName());
-            file.set("flags." + flagName + ".controller", controller.getClass().getName().split("\\.")[7]);
+            file.set("flags." + flagState + ".controller", controller.getClass().getName().split("\\.")[7]);
 
             if (builder != null && builder.length() > 1) {
                 for (String label : builder.toString().split(" "))
-                    file.set("flags." + flagName + ".params." + label.split(":")[0], label.split(":")[1]);
-            } else file.set("flags." + flagName + ".params", args[3]);
+                    file.set("flags." + flagState + ".params." + label.split(":")[0], label.split(":")[1]);
+            } else file.set("flags." + flagState + ".params", args[3]);
+
+            player.sendMessage("Флаг установлен!");
 
         } else if (args[0].equalsIgnoreCase("info")) {
             if (args.length < 2) {

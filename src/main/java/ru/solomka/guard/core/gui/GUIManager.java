@@ -14,7 +14,7 @@ import ru.solomka.guard.config.utils.FileUtils;
 import ru.solomka.guard.core.gui.module.GMenu;
 import ru.solomka.guard.core.gui.module.entity.BaseElement;
 import ru.solomka.guard.core.gui.module.entity.GPlaceholderEntry;
-import ru.solomka.guard.core.utils.GPlaceholder;
+import ru.solomka.guard.core.gui.tools.GPlaceholder;
 import ru.solomka.guard.utils.GLogger;
 
 import java.util.ArrayList;
