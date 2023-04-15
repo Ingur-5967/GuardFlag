@@ -14,7 +14,8 @@ public class GMetaData {
 
     private static Map<Object, GData<?>> CONTAINER = new HashMap<>();
 
-    @Getter private Object info;
+    @Getter
+    private Object info;
 
     public GMetaData(@NotNull Player player) {
         this.info = player.getUniqueId();
@@ -28,7 +29,8 @@ public class GMetaData {
         this.info = entity.getEntityId();
     }
 
-    public GMetaData() {}
+    public GMetaData() {
+    }
 
     public void saveUser(GData<?> data) {
         CONTAINER.put(info, data);
@@ -44,13 +46,13 @@ public class GMetaData {
     }
 
     public static List<Object> getAll(GData<?> data) {
-        if(CONTAINER.isEmpty()) return Collections.emptyList();
+        if (CONTAINER.isEmpty()) return Collections.emptyList();
 
         List<Object> entries = new ArrayList<>(CONTAINER.size());
 
-        for(Map.Entry<Object, GData<?>> aMap : CONTAINER.entrySet()) {
+        for (Map.Entry<Object, GData<?>> aMap : CONTAINER.entrySet()) {
 
-            if(!data.getKey().equals(aMap.getKey()) && data.getInfo().equals(aMap.getValue())) continue;
+            if (!data.getKey().equals(aMap.getKey()) && data.getInfo().equals(aMap.getValue())) continue;
 
             entries.add(aMap.getKey());
         }
@@ -65,7 +67,8 @@ public class GMetaData {
         return CONTAINER;
     }
 
-    @Data @AllArgsConstructor
+    @Data
+    @AllArgsConstructor
     public static class GData<T> {
         private String key;
         private final T info;

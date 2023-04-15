@@ -2,7 +2,6 @@ package ru.solomka.guard.core.flag.event.handler;
 
 import com.sk89q.worldguard.bukkit.event.block.UseBlockEvent;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
@@ -10,78 +9,61 @@ import org.bukkit.event.*;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.ItemStack;
 import ru.solomka.guard.core.flag.FlagManager;
 import ru.solomka.guard.core.flag.entity.enums.ActionBlock;
 import ru.solomka.guard.core.flag.event.RegionHarmEvent;
 import ru.solomka.guard.core.flag.event.RegionInteractBlockEvent;
-import ru.solomka.guard.core.gui.tools.InventoryUtils;
+import ru.solomka.guard.core.flag.module.GFlag;
 import ru.solomka.guard.core.utils.WorldGuardHelper;
-import ru.solomka.guard.utils.GLogger;
 
 public class GuardEntryBlock implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onInteractBypass(UseBlockEvent event) {
-        if (WorldGuardHelper.getRegionOfContainsBlock(event.getBlocks().get(0)) != null) {
-            event.setCancelled(true);
-        }
+    public void onInteractBypass(UseBlockEvent e) {
+        if(WorldGuardHelper.getRegionOfContainsBlock(e.getBlocks().get(0)) != null)
+            e.setCancelled(true);
     }
 
-
-    //TODO
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onInteractHandler(UseBlockEvent event) {
-        Block block = event.getBlocks().get(0);
+    public void onInteractHandler(UseBlockEvent e) {
 
-        if (!(event.getCause().getFirstEntity() instanceof Player)) return;
+        ProtectedRegion region = WorldGuardHelper.getRegionOfContainsBlock(e.getBlocks().get(0));
 
-        Player target = event.getCause().getFirstPlayer();
+        if(e.getOriginalEvent() == null) return;
 
-        if (event.getOriginalEvent() == null) return;
+        if(!(e.getOriginalEvent() instanceof PlayerInteractEvent)) return;
 
-        PlayerInteractEvent interact = (PlayerInteractEvent) event.getOriginalEvent();
+        if(!(e.getCause().getFirstEntity() instanceof Player) || e.getCause().getFirstPlayer() == null) return;
 
-        ProtectedRegion region = WorldGuardHelper.getRegionOfContainsBlock(block);
+        PlayerInteractEvent interactEvent = (PlayerInteractEvent) e.getOriginalEvent();
 
-        Event e = null;
+        Player player = e.getCause().getFirstPlayer();
 
-        if (target == null || (block == null || region == null)) return;
+        Action action = interactEvent.getAction();
 
-        ItemStack item = target.getInventory().getItemInMainHand();
-
-        Action currentAction = interact.getAction();
-
-
-        if (target.getTargetBlock(null, 6) != null) {
-
-            if (!InventoryUtils.compareMaterials(item.getType(), Material.AIR) && interact.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                e = new RegionHarmEvent(
-                        target,
-                        ActionBlock.PLACE,
-                        region,
-                        new BlockPlaceEvent(block, block.getState(), block, target.getInventory().getItemInMainHand(), target, true, EquipmentSlot.HAND)
-                );
-            }
-
-            if (e == null && currentAction == Action.LEFT_CLICK_BLOCK) {
-                e = new RegionHarmEvent(
-                        target, ActionBlock.BREAK, region,
-                        new BlockBreakEvent(block, target.getPlayer())
-                );
-            }
-
-            if (e == null)
-                e = new RegionInteractBlockEvent(target, block, interact.getAction(), region);
-
+        if(region == null) {
+            e.setCancelled(false);
+            return;
         }
 
-        if (e == null) return;
+        GFlag.GMaterialFilter filter = GFlag.getFilter();
 
-        FlagManager.callEvent(e);
-        event.setCancelled(((Cancellable) e).isCancelled());
+        if(action == Action.LEFT_CLICK_AIR || action == Action.RIGHT_CLICK_AIR) return;
+
+        Event event = null;
+
+        if(action == Action.RIGHT_CLICK_BLOCK && filter.canUse(interactEvent.getClickedBlock().getType()))
+            event = new RegionInteractBlockEvent(player, interactEvent.getClickedBlock(), interactEvent.getAction(), region);
+        else if(action == Action.RIGHT_CLICK_BLOCK && filter.canBuild(interactEvent.getClickedBlock().getType(), player.getInventory().getItemInMainHand().getType()))
+            event = new RegionHarmEvent(player, ActionBlock.PLACE, region, interactEvent);
+        else if(action == Action.LEFT_CLICK_BLOCK)
+            event = new RegionHarmEvent(player, ActionBlock.BREAK, region, interactEvent);
+
+        if(event == null) return;
+
+        FlagManager.callEvent(event);
+
+        e.setCancelled(((Cancellable) event).isCancelled());
     }
 }

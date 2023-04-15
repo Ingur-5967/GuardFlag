@@ -2,38 +2,35 @@ package ru.solomka.guard.command;
 
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
-import ru.solomka.guard.command.module.ECommand;
-import ru.solomka.guard.config.RegistrationService;
+import org.bukkit.command.TabCompleter;
+import ru.solomka.guard.command.module.GCommand;
 import ru.solomka.guard.utils.GLogger;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collections;
 
 public class CommandBuilder {
 
-    @Getter private final ECommand command;
+    @Getter private final GCommand command;
     @Getter private final PluginCommand minecraftCommand;
 
-    public CommandBuilder(ECommand command) {
+    public CommandBuilder(GCommand command) {
         this.command = command;
         minecraftCommand = Bukkit.getPluginCommand(command.getSyntax());
     }
 
-
-    public CommandBuilder initСontrols() throws InstantiationException, IllegalAccessException {
-        minecraftCommand.setExecutor(command.getClass().newInstance());
-        minecraftCommand.setTabCompleter(command.getClass().newInstance());
+    public CommandBuilder initСontrols() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+        minecraftCommand.setExecutor(command.getClass().getDeclaredConstructor().newInstance());
+        minecraftCommand.setTabCompleter(command.getClass().getDeclaredConstructor().newInstance());
         return this;
     }
 
     public CommandBuilder initAliases() {
         minecraftCommand.setAliases(command.getAliases() == null ? Collections.emptyList() : Arrays.asList(command.getAliases()));
         return this;
-    }
-
-    public static void onEna() {
-
     }
 
     public void build() {

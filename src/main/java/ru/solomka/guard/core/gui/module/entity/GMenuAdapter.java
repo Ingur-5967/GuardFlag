@@ -7,8 +7,12 @@ import org.bukkit.inventory.Inventory;
 
 import java.util.List;
 
-@Data @AllArgsConstructor
+@Data
+@AllArgsConstructor
 public class GMenuAdapter {
     private final Inventory inventory;
-    @Setter private List<BaseElement<?>> components;
+    private final boolean isSupportMultiPages;
+    private final int maxPages;
+    @Setter
+    private List<BaseElement<?>> components;
 }

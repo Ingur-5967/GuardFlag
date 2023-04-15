@@ -50,7 +50,7 @@ public class GUIController {
 
     public GUIController(String fileName) {
         this.fileName = fileName;
-        this.file = FileUtils.getDirectoryFile(DirectorySource.MENU.getType(), fileName);
+        this.file = FileUtils.getDirectoryFile(DirectorySource.MENU.getName(), fileName);
     }
 
     @SuppressWarnings("unchecked")

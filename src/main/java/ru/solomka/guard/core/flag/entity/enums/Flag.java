@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 public enum Flag {
 
     TNT_EXPLOSION("tnt-explosion", new Object[]{"true", "false"}, Arrays.asList("true", "false"), ContextFlag.EXPLOSION),
-    BLOCK_BUILD("block-build", new Object[]{":"}, Arrays.stream(Material.values()).map(String::valueOf).collect(Collectors.toList()), ContextFlag.BREAK, ContextFlag.PLACE),
+    BLOCK_BUILD("block-build", new Object[]{":"}, Arrays.stream(Material.values()).map(String::valueOf).collect(Collectors.toList()), ContextFlag.BREAK, ContextFlag.PLACE, ContextFlag.INTERACT),
     SAVE_ITEMS("save-items", new Object[]{"true", "false"}, Arrays.asList("true", "false"), ContextFlag.DEAD),
     REDSTONE_CONTROLLER("redstone", new Object[]{"true", "false"}, Arrays.asList("true", "false"), ContextFlag.INTERACT),
     FLY_ENABLE("fly-enable", new Object[]{"true", "false"}, Arrays.asList("true", "false"), ContextFlag.ENTERED_REGION, ContextFlag.LEFT_REGION),
-    INTERACT_ITEMS("interact-items", new Object[]{"true", "false"}, Arrays.stream(Material.values()).map(String::valueOf).collect(Collectors.toList()), ContextFlag.INTERACT);
+    INTERACT_BLOCKS("interact-blocks", new Object[]{":"}, Arrays.stream(Material.values()).map(String::valueOf).collect(Collectors.toList()), ContextFlag.INTERACT);
 
     @Getter private final String idFlag;
     @Getter private final Object[] argumentsToCommand;

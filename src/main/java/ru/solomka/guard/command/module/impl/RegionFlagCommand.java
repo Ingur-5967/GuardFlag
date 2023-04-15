@@ -5,29 +5,22 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import ru.solomka.guard.Main;
-import ru.solomka.guard.command.module.ECommand;
+import ru.solomka.guard.command.module.GCommand;
 import ru.solomka.guard.command.module.entity.TabViewCommand;
-import ru.solomka.guard.command.module.enums.SenderType;
+import ru.solomka.guard.command.module.entity.enums.SenderType;
 import ru.solomka.guard.config.Yaml;
-import ru.solomka.guard.config.enums.DirectorySource;
 import ru.solomka.guard.core.GRegionManager;
-import ru.solomka.guard.core.scoreboard.GScoreboard;
-import ru.solomka.guard.core.utils.WorldGuardHelper;
 import ru.solomka.guard.core.flag.FlagManager;
 import ru.solomka.guard.core.flag.entity.enums.Flag;
 import ru.solomka.guard.core.flag.module.GFlag;
 import ru.solomka.guard.core.gui.GUIManager;
 import ru.solomka.guard.core.gui.module.impl.GuardMenu;
-import ru.solomka.guard.utils.GLogger;
+import ru.solomka.guard.core.scoreboard.GScoreboard;
+import ru.solomka.guard.core.utils.WorldGuardHelper;
 
-import java.io.File;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
-public class RegionFlagCommand extends ECommand {
+public class RegionFlagCommand extends GCommand {
 
     public RegionFlagCommand() {
         super(
@@ -36,10 +29,10 @@ public class RegionFlagCommand extends ECommand {
                 null,
                 null,
                 new Object[]{
-                        new TabViewCommand(0, new Object[]{"flag", "info", "regions"}),
-                        new TabViewCommand(1, new Object[]{"<inter-region-name>"}),
-                        new TabViewCommand(2, new Object[]{"<inter-flag-name>"}),
-                        new TabViewCommand(3, new Object[]{"<argument:state> OR <argument-state>"}),
+                        new TabViewCommand<>(0, new String[]{"flag", "info", "regions"}),
+                        new TabViewCommand<>(1, new String[]{"<inter-region-name>"}),
+                        new TabViewCommand<>(2, Arrays.stream(Flag.values()).map(Enum::name).toArray(String[]::new)),
+                        new TabViewCommand<>(3, new String[]{"<argument> OR <arguments...>"}),
                 }
         );
     }
@@ -61,20 +54,7 @@ public class RegionFlagCommand extends ECommand {
 
         GRegionManager gRegionManager;
 
-        if(args[0].equalsIgnoreCase("tp")) {
-            if(args.length < 2) {
-                player.sendMessage(getHelpCommand());
-                return true;
-            }
-
-            region = regionManager.getRegion(args[1]);
-
-            if (region == null) {
-                player.sendMessage("Регион не существует!");
-                return true;
-            }
-            player.teleport(WorldGuardHelper.getCenterRegionLocation(region));
-        } else if (args[0].equalsIgnoreCase("flag")) {
+        if (args[0].equalsIgnoreCase("flag")) {
 
             new GScoreboard().setupToPlayer(player, GScoreboard.Builder.builder().initObjective("&cRegion info").initScores(
                     GScoreboard.EMPTY_ARGUMENT, "&7&l> &fРегион: &7[&6some_name&7]", "&7&l> &fВладелец: &7[&asome_name&7]",

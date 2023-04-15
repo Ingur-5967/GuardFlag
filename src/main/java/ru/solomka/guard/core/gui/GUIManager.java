@@ -38,7 +38,7 @@ public class GUIManager {
     }
 
     public List<Integer> getActiveComponents(@NotNull GMenu gui) {
-        Yaml file = FileUtils.getDirectoryFile(DirectorySource.MENU.getType(), gui.getFileControllerName());
+        Yaml file = FileUtils.getDirectoryFile(DirectorySource.MENU.getName(), gui.getFileControllerName());
         List<Integer> activeComponents = new ArrayList<>();
         for (int i = 0; i < gui.getSlots(); i++) {
             if(file.getString("items." + i) == null) continue;
@@ -78,7 +78,7 @@ public class GUIManager {
         public GUIComponentBuilder(int id, String controller) {
             this.id = id;
             this.controller = controller;
-            file = FileUtils.getDirectoryFile(DirectorySource.MENU.getType(), controller);
+            file = FileUtils.getDirectoryFile(DirectorySource.MENU.getName(), controller);
             this.item = null;
         }
 

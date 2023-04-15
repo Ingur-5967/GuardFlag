@@ -29,6 +29,11 @@ public class WorldGuardHelper {
                 .stream().filter(r -> r.contains(block.getX(), block.getY(), block.getZ())).findAny().orElse(null);
     }
 
+    public static ProtectedRegion getRegionOfContainsLocation(Location loc) {
+        return getRegionManager(loc.getWorld()).getApplicableRegions(loc).getRegions()
+                .stream().filter(r -> r.contains((int) loc.getX(), (int) loc.getY(), (int) loc.getZ())).findAny().orElse(null);
+    }
+
     public static Location getCenterRegionLocation(ProtectedRegion region) {
 
         for (World w : Bukkit.getWorlds()) {
@@ -55,7 +60,7 @@ public class WorldGuardHelper {
     }
 
     public static void checkAllRegions() {
-        File dir = new File(Main.getInstance().getDataFolder() + File.separator + DirectorySource.DATA.getType());
+        File dir = new File(Main.getInstance().getDataFolder() + File.separator + DirectorySource.DATA.getName());
 
         if (!dir.exists() || !dir.isDirectory() || dir.listFiles() == null) return;
         if (dir.listFiles() == null) return;
@@ -67,12 +72,12 @@ public class WorldGuardHelper {
             if (!f.getName().contains("_")) return;
 
             String regionName = f.getName().split("_")[1].split("\\.")[0];
-            Yaml file = FileUtils.getDirectoryFile(DirectorySource.DATA.getType(), f.getName().split("\\.yml")[0]);
+            Yaml file = FileUtils.getDirectoryFile(DirectorySource.DATA.getName(), f.getName().split("\\.yml")[0]);
 
             if (file.getString("world") == null || Bukkit.getWorld(file.getString("world")) == null)
                 f.delete();
             else {
-                String nameWorld = FileUtils.getDirectoryFile(DirectorySource.DATA.getType(), f.getName()).getString("world");
+                String nameWorld = FileUtils.getDirectoryFile(DirectorySource.DATA.getName(), f.getName()).getString("world");
                 RegionManager regionManager = WorldGuardHelper.getRegionManager(Bukkit.getWorld(nameWorld));
 
                 if (regionManager.getRegion(regionName) == null)

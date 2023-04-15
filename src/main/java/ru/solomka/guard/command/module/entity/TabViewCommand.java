@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data @AllArgsConstructor
-public class TabViewCommand {
+public class TabViewCommand<T> {
     private final int index;
-    private final Object[] toView;
+    private final T[] toView;
 }

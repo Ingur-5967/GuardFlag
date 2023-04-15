@@ -23,7 +23,7 @@ public class GRegionManager {
 
     public void createRegionFile() {
         if (getFileRegion() == null) {
-            Yaml data = FileUtils.getDirectoryFile(DirectorySource.DATA.getType(), "region_" + id);
+            Yaml data = FileUtils.getDirectoryFile(DirectorySource.DATA.getName(), "region_" + id);
             data.set("flags", "[]");
             data.set("world", "[]");
         }
@@ -40,6 +40,6 @@ public class GRegionManager {
     }
 
     public Yaml getFileRegion() {
-        return FileUtils.getDirectoryFile(DirectorySource.DATA.getType(), "region_" + id);
+        return FileUtils.getDirectoryFile(DirectorySource.DATA.getName(), "region_" + id);
     }
 }

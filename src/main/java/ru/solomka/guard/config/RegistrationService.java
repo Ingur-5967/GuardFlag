@@ -14,7 +14,7 @@ public class RegistrationService {
         if(Main.getInstance().getDataFolder() == null) Main.getInstance().getDataFolder().mkdir();
         for (String str : files) {
             if (directoryType != DirectorySource.NONE)
-                new Yaml(directoryType.getType(), str + ".yml", true);
+                new Yaml(directoryType.getName(), str + ".yml", true);
             else
                 new Yaml(str + ".yml");
         }

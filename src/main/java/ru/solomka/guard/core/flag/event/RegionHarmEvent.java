@@ -5,7 +5,9 @@ import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockEvent;
 import ru.solomka.guard.core.flag.entity.enums.ActionBlock;
 
@@ -17,15 +19,15 @@ public class RegionHarmEvent extends Event implements Cancellable {
     @Getter private final Player player;
     @Getter private final ActionBlock harmType;
     @Getter private final ProtectedRegion region;
-    @Getter private final BlockEvent event;
+    @Getter private final Event parent;
 
     private boolean cancel;
 
-    public RegionHarmEvent(Player player, ActionBlock harmType, ProtectedRegion region, BlockEvent event) {
+    public RegionHarmEvent(Player player, ActionBlock harmType, ProtectedRegion region, Event parent) {
         this.player = player;
         this.harmType = harmType;
         this.region = region;
-        this.event = event;
+        this.parent = parent;
     }
 
     @Override

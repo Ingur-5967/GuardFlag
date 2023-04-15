@@ -21,8 +21,8 @@ public class TriggeredRegionEvent implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onMovingRegion(RegionMovingEvent event) {
-        if (flagManager.getGFlagsOf(Flag.ContextFlag.MOVING) == null) return;
-        flagManager.getGFlagsOf(Flag.ContextFlag.MOVING).forEach(f -> FlagManager.callController(f, event));
+        if (flagManager.getGFlags(Flag.ContextFlag.MOVING) == null) return;
+        flagManager.getGFlags(Flag.ContextFlag.MOVING).forEach(f -> FlagManager.callController(f, event));
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -35,35 +35,41 @@ public class TriggeredRegionEvent implements Listener {
                     new TextComponent(ChatColor.translateAlternateColorCodes('&', format.replace("%region%", event.getRegion().getId()))));
         }
 
-        if (flagManager.getGFlagsOf(Flag.ContextFlag.ENTERED_REGION) == null) return;
-        flagManager.getGFlagsOf(Flag.ContextFlag.ENTERED_REGION).forEach(f -> FlagManager.callController(f, event));
+        if (flagManager.getGFlags(Flag.ContextFlag.ENTERED_REGION) == null) return;
+        flagManager.getGFlags(Flag.ContextFlag.ENTERED_REGION).forEach(f -> FlagManager.callController(f, event));
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onHarmRegion(RegionHarmEvent event) {
         switch (event.getHarmType()) {
             case BREAK: {
-                if (flagManager.getGFlagsOf(Flag.ContextFlag.BREAK) == null)
+                if (flagManager.getGFlags(Flag.ContextFlag.BREAK) == null)
                     return;
 
-                flagManager.getGFlagsOf(Flag.ContextFlag.BREAK).forEach(f -> FlagManager.callController(f, event));
+                flagManager.getGFlags(Flag.ContextFlag.BREAK).forEach(f -> FlagManager.callController(f, event));
                 break;
             }
             case PLACE: {
-                if (flagManager.getGFlagsOf(Flag.ContextFlag.PLACE) == null)
+                if (flagManager.getGFlags(Flag.ContextFlag.PLACE) == null)
                     return;
 
-                flagManager.getGFlagsOf(Flag.ContextFlag.PLACE).forEach(f -> FlagManager.callController(f, event));
-                break;
+                flagManager.getGFlags(Flag.ContextFlag.PLACE).forEach(f -> FlagManager.callController(f, event));
+            }
+
+            case INTERACT: {
+                if (flagManager.getGFlags(Flag.ContextFlag.INTERACT) == null)
+                    return;
+
+                flagManager.getGFlags(Flag.ContextFlag.INTERACT).forEach(f -> FlagManager.callController(f, event));
             }
         }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onInteractRegion(RegionInteractBlockEvent event) {
-        if(flagManager.getGFlagsOf(Flag.ContextFlag.INTERACT) == null)
+        if(flagManager.getGFlags(Flag.ContextFlag.INTERACT) == null)
             return;
 
-        flagManager.getGFlagsOf(Flag.ContextFlag.INTERACT).forEach(f -> FlagManager.callController(f, event));
+        flagManager.getGFlags(Flag.ContextFlag.INTERACT).forEach(f -> FlagManager.callController(f, event));
     }
 }

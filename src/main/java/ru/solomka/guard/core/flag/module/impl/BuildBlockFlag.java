@@ -5,8 +5,11 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerInteractEvent;
 import ru.solomka.guard.config.Yaml;
+import ru.solomka.guard.config.lang.entity.Message;
 import ru.solomka.guard.core.GRegionManager;
+import ru.solomka.guard.core.flag.FlagManager;
 import ru.solomka.guard.core.utils.WorldGuardHelper;
 import ru.solomka.guard.core.flag.entity.enums.Flag;
 import ru.solomka.guard.core.flag.event.RegionHarmEvent;
@@ -31,7 +34,10 @@ public class BuildBlockFlag extends GFlag<RegionHarmEvent> {
     @Override
     public void onEnable(RegionHarmEvent event) {
 
-        Block block = event.getEvent().getBlock();
+        PlayerInteractEvent interactEvent = (PlayerInteractEvent) event.getParent();
+
+        Block block = interactEvent.getClickedBlock();
+
         Player player = event.getPlayer();
 
         ProtectedRegion region = WorldGuardHelper.getRegionOfContainsBlock(block);
@@ -47,8 +53,8 @@ public class BuildBlockFlag extends GFlag<RegionHarmEvent> {
         }
 
         if (!existsFlag(region.getId())) {
-            sendErrorMessage(player);
-            event.setCancelled(true);
+           player.sendMessage("Нет тут флага, олух");
+           event.setCancelled(true);
             return;
         }
 
@@ -71,13 +77,8 @@ public class BuildBlockFlag extends GFlag<RegionHarmEvent> {
                 if (InventoryUtils.compareMaterials(aMap.getKey(), block.getType()))
                     event.setCancelled(!aMap.getValue().equals("allow"));
         } else {
-            sendErrorMessage(player);
+            player.sendMessage("Блок вне списка!");
             event.setCancelled(true);
         }
-    }
-
-    @Override
-    public String getErrorMessage() {
-        return translateAlternateColorCodes('&', "&6[!] &fВы не можете &c&lпоставить/сломать&F блок в чужом регионе!");
     }
 }

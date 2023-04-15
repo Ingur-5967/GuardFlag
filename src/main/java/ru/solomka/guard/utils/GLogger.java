@@ -1,6 +1,7 @@
 package ru.solomka.guard.utils;
 
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import ru.solomka.guard.Main;
 import ru.solomka.guard.core.gui.tools.GPlaceholder;
 
@@ -25,6 +26,9 @@ public class GLogger {
     }
 
     private static void logger(String prefix, Object... values) {
+
+        new ItemStack(Material.HOPPER).getItemMeta().setDisplayName("asd");
+
         Arrays.stream(values).map(String::valueOf).forEach(value -> Main.getInstance().getLogger().info(prefix + " >> " + new GPlaceholder().getReplacedElementOfTags(value)));
     }
 }

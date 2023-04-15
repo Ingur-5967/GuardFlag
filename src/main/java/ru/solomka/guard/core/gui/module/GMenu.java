@@ -35,18 +35,15 @@ public abstract class GMenu {
     }
 
     public GMenuAdapter initMenu() {
-
         Inventory inventory = Bukkit.createInventory(null, getSlots(), getTitle());
         List<BaseElement<?>> componentMenuList = new ArrayList<>();
 
-        Yaml file = FileUtils.getDirectoryFile(DirectorySource.MENU.getType(), getFileControllerName());
+        Yaml file = FileUtils.getDirectoryFile(DirectorySource.MENU.getName(), getFileControllerName());
 
         for (int id : new GUIManager().getActiveComponents(this)) {
 
             ItemStack item = new GUIManager.GUIComponentBuilder(id, fileControllerName).resolveItemById().initMeta().getItem();
-
-            GButton gButton = new GButton(id, new BaseElement.ElementOption(item, file.getInt("items." + id + ".slot")))
-                    .registerComponent().getInstance();
+            GButton gButton = new GButton(id, new BaseElement.ElementOption(item, file.getInt("items." + id + ".slot"))).registerComponent().getInstance();
 
             GUIController guiController = new GUIController(getFileControllerName());
             List<GUIController.GCommandGUI<?, ?>> commands = guiController.getGCommands(id);
@@ -60,22 +57,17 @@ public abstract class GMenu {
                 for(GUIController.GCommandGUI<?, ?> command : commands) {
                     guiController.execute(
                             command.getCommand(),
-                            !command.isNeedArgument() ? new Object() : fCommands.get(commands.indexOf(command)).split(":")[1],
-                            (Player) s.getWhoClicked()
+                            !command.isNeedArgument() ? new Object() : fCommands.get(commands.indexOf(command)).split(":")[1], (Player) s.getWhoClicked()
                     );
                 }
             });
             componentMenuList.add(gButton);
             inventory.setItem(file.getInt("items." + id + ".slot"), item);
         }
-
         InventoryUtils.fillEmptySlots(new ItemStack(Material.STAINED_GLASS_PANE, 1, (byte) 7), inventory);
-        GMenuAdapter adapter = new GMenuAdapter(inventory, componentMenuList);
-
+        GMenuAdapter adapter = new GMenuAdapter(inventory, file.getBoolean("option.multi-pages"), file.getInt("option.max-pages"), componentMenuList);
         componentMenuList.forEach(e -> e.init(adapter));
-
         adapter.setComponents(initComponents(adapter) == null ? adapter.getComponents() : initComponents(adapter));
-
         return adapter;
     }
 

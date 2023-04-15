@@ -4,16 +4,18 @@ import lombok.Getter;
 
 public enum DirectorySource {
 
-    PLAYER("playerdata"),
+
+    CACHE("cache"),
+    LANG("lang"),
     MENU("menu"),
     DATA("data"),
     NONE("");
 
     @Getter
-    private final String type;
+    private final String name;
 
-    DirectorySource(String type) {
-        this.type = type;
+    DirectorySource(String name) {
+        this.name = name;
     }
 
 }

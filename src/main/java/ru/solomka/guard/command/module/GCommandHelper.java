@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public interface ECommandHelper extends CommandExecutor, TabCompleter {
+public interface GCommandHelper extends CommandExecutor, TabCompleter {
     @Override
     boolean onCommand(CommandSender sender, Command command, String label, String[] args);
 

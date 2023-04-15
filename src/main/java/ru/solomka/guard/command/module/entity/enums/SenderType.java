@@ -1,4 +1,4 @@
-package ru.solomka.guard.command.module.enums;
+package ru.solomka.guard.command.module.entity.enums;
 
 import lombok.Getter;
 import org.bukkit.command.CommandSender;
