@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerMoveEvent;
 import ru.solomka.guard.config.utils.FileUtils;
 import ru.solomka.guard.core.flag.FlagManager;
 import ru.solomka.guard.core.flag.entity.enums.Flag;
@@ -63,6 +64,11 @@ public class TriggeredRegionEvent implements Listener {
                 flagManager.getGFlags(Flag.ContextFlag.INTERACT).forEach(f -> FlagManager.callController(f, event));
             }
         }
+    }
+
+    @EventHandler
+    public void onMove(PlayerMoveEvent event) {
+        event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

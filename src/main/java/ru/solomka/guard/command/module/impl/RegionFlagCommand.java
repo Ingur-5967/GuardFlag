@@ -5,6 +5,7 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import ru.solomka.guard.command.module.GCommand;
 import ru.solomka.guard.command.module.entity.TabViewCommand;
 import ru.solomka.guard.command.module.entity.enums.SenderType;
